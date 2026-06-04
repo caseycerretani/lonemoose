@@ -4,3 +4,4 @@ server/node_modules/
 server/trails.db
 client/dist/
 .env
+.claude/
