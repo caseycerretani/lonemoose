@@ -1,13 +1,18 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import TrailCard from './components/TrailCard.jsx';
+import TrailDetailModal from './components/TrailDetailModal.jsx';
 import ReportModal from './components/ReportModal.jsx';
 import RegionFilter from './components/RegionFilter.jsx';
+
+const REFRESH_INTERVAL = 12 * 60 * 60 * 1000; // 12 hours
 
 export default function App() {
   const [trails, setTrails] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selectedRegion, setSelectedRegion] = useState('All');
-  const [selectedTrail, setSelectedTrail] = useState(null);
+  const [detailTrail, setDetailTrail] = useState(null);
+  const [reportTrail, setReportTrail] = useState(null);
+  const intervalRef = useRef(null);
 
   const fetchTrails = useCallback(async () => {
     setLoading(true);
@@ -27,11 +32,24 @@ export default function App() {
 
   useEffect(() => {
     fetchTrails();
+    intervalRef.current = setInterval(fetchTrails, REFRESH_INTERVAL);
+    return () => clearInterval(intervalRef.current);
   }, [fetchTrails]);
 
   const handleReportSubmit = async () => {
-    setSelectedTrail(null);
+    setReportTrail(null);
+    setDetailTrail(null);
     await fetchTrails();
+  };
+
+  const openDetail = (trail) => {
+    setDetailTrail(trail);
+    setReportTrail(null);
+  };
+
+  const openReport = (trail) => {
+    setReportTrail(trail);
+    setDetailTrail(null);
   };
 
   return (
@@ -72,17 +90,25 @@ export default function App() {
               <TrailCard
                 key={trail.id}
                 trail={trail}
-                onClick={() => setSelectedTrail(trail)}
+                onClick={() => openDetail(trail)}
               />
             ))}
           </div>
         )}
       </main>
 
-      {selectedTrail && (
+      {detailTrail && (
+        <TrailDetailModal
+          trail={detailTrail}
+          onClose={() => setDetailTrail(null)}
+          onLogReport={() => openReport(detailTrail)}
+        />
+      )}
+
+      {reportTrail && (
         <ReportModal
-          trail={selectedTrail}
-          onClose={() => setSelectedTrail(null)}
+          trail={reportTrail}
+          onClose={() => setReportTrail(null)}
           onSubmit={handleReportSubmit}
         />
       )}

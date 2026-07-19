@@ -458,3 +458,151 @@ body {
 .report-form .star { font-size: 1.6rem; }
 .report-form .star:hover,
 .report-form .star.filled { color: #f59e0b; }
+
+/* ── Trail Detail Modal ───────────────────────────────────── */
+.modal-detail { max-width: 560px; padding: 0; overflow: hidden; }
+
+.detail-header {
+  padding: 1.75rem 1.75rem 1.25rem;
+  border-bottom: 1px solid #2a2d3a;
+}
+
+.detail-badges {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.75rem;
+}
+
+.detail-region {
+  font-size: 0.7rem;
+  color: #6b7280;
+  margin-left: 0.25rem;
+}
+
+.detail-title {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #f9fafb;
+  line-height: 1.25;
+  margin-bottom: 0.4rem;
+}
+
+.detail-desc {
+  font-size: 0.83rem;
+  color: #9ca3af;
+  line-height: 1.55;
+  margin-bottom: 1rem;
+}
+
+.detail-stats {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.detail-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+
+.detail-stat-value {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #e5e7eb;
+  font-variant-numeric: tabular-nums;
+}
+
+.detail-stat-label {
+  font-size: 0.7rem;
+  color: #6b7280;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.detail-stat-divider {
+  width: 1px;
+  height: 2rem;
+  background: #2a2d3a;
+}
+
+/* ── Reports section ──────────────────────────────────────── */
+.reports-section { padding: 1.25rem 1.75rem 1.75rem; }
+
+.reports-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.reports-title {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #d1d5db;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.btn-sm {
+  padding: 0.35rem 0.85rem;
+  font-size: 0.8rem;
+}
+
+.reports-loading {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.report-skeleton {
+  height: 3.5rem;
+  border-radius: 0.5rem;
+  background: linear-gradient(90deg, #1f2330 25%, #2a2d3a 50%, #1f2330 75%);
+  background-size: 800px 100%;
+  animation: shimmer 1.4s infinite linear;
+}
+
+.reports-empty {
+  text-align: center;
+  padding: 2rem 1rem;
+  color: #6b7280;
+  font-size: 0.85rem;
+  line-height: 1.7;
+}
+
+.reports-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.report-item {
+  background: #0f1117;
+  border: 1px solid #2a2d3a;
+  border-radius: 0.5rem;
+  padding: 0.75rem 1rem;
+}
+
+.report-top {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+
+.report-time {
+  font-size: 0.72rem;
+  color: #6b7280;
+  margin-left: auto;
+}
+
+.report-comment {
+  font-size: 0.82rem;
+  color: #9ca3af;
+  margin-top: 0.5rem;
+  line-height: 1.5;
+}
