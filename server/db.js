@@ -21,12 +21,19 @@ db.exec(`
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     trail_id INTEGER NOT NULL,
     condition TEXT NOT NULL,
-    rating INTEGER NOT NULL CHECK(rating BETWEEN 1 AND 5),
+    rating INTEGER CHECK(rating BETWEEN 1 AND 5),
     comment TEXT,
+    source TEXT NOT NULL DEFAULT 'rider',
     created_at TEXT NOT NULL DEFAULT (strftime('%Y-%m-%dT%H:%M:%fZ', 'now')),
     FOREIGN KEY (trail_id) REFERENCES trails(id)
   );
 `);
+
+// Migrate existing DBs: add source column if missing, drop NOT NULL on rating
+try {
+  db.exec(`ALTER TABLE reports ADD COLUMN source TEXT NOT NULL DEFAULT 'rider'`);
+} catch (_) { /* column already exists */ }
+// SQLite can't drop constraints, but the new CREATE TABLE above handles fresh DBs correctly.
 
 const trailCount = db.prepare('SELECT COUNT(*) as count FROM trails').get();
 if (trailCount.count === 0) {

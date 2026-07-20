@@ -4,14 +4,26 @@ import TrailDetailModal from './components/TrailDetailModal.jsx';
 import ReportModal from './components/ReportModal.jsx';
 import RegionFilter from './components/RegionFilter.jsx';
 
-const REFRESH_INTERVAL = 12 * 60 * 60 * 1000; // 12 hours
+const TRAIL_REFRESH_INTERVAL  = 12 * 60 * 60 * 1000; // 12 hours
+const WEATHER_STATUS_INTERVAL =  6 * 60 * 60 * 1000; // 6 hours
+
+function timeAgo(isoString) {
+  if (!isoString) return null;
+  const diff = Date.now() - new Date(isoString).getTime();
+  const minutes = Math.floor(diff / 60000);
+  if (minutes < 60) return `${minutes}m ago`;
+  const hours = Math.floor(minutes / 60);
+  if (hours < 24) return `${hours}h ago`;
+  return `${Math.floor(hours / 24)}d ago`;
+}
 
 export default function App() {
-  const [trails, setTrails] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [trails, setTrails]               = useState([]);
+  const [loading, setLoading]             = useState(true);
   const [selectedRegion, setSelectedRegion] = useState('All');
-  const [detailTrail, setDetailTrail] = useState(null);
-  const [reportTrail, setReportTrail] = useState(null);
+  const [detailTrail, setDetailTrail]     = useState(null);
+  const [reportTrail, setReportTrail]     = useState(null);
+  const [weatherStatus, setWeatherStatus] = useState(null);
   const intervalRef = useRef(null);
 
   const fetchTrails = useCallback(async () => {
@@ -30,11 +42,25 @@ export default function App() {
     }
   }, [selectedRegion]);
 
+  const fetchWeatherStatus = useCallback(async () => {
+    try {
+      const res = await fetch('/api/weather/status');
+      const data = await res.json();
+      setWeatherStatus(data);
+    } catch (_) {}
+  }, []);
+
   useEffect(() => {
     fetchTrails();
-    intervalRef.current = setInterval(fetchTrails, REFRESH_INTERVAL);
+    intervalRef.current = setInterval(fetchTrails, TRAIL_REFRESH_INTERVAL);
     return () => clearInterval(intervalRef.current);
   }, [fetchTrails]);
+
+  useEffect(() => {
+    fetchWeatherStatus();
+    const id = setInterval(fetchWeatherStatus, WEATHER_STATUS_INTERVAL);
+    return () => clearInterval(id);
+  }, [fetchWeatherStatus]);
 
   const handleReportSubmit = async () => {
     setReportTrail(null);
@@ -42,15 +68,12 @@ export default function App() {
     await fetchTrails();
   };
 
-  const openDetail = (trail) => {
-    setDetailTrail(trail);
-    setReportTrail(null);
-  };
+  const openDetail = (trail) => { setDetailTrail(trail); setReportTrail(null); };
+  const openReport = (trail) => { setReportTrail(trail); setDetailTrail(null); };
 
-  const openReport = (trail) => {
-    setReportTrail(trail);
-    setDetailTrail(null);
-  };
+  const weatherUpdatedAt = weatherStatus?.lastUpdate
+    ? timeAgo(weatherStatus.lastUpdate)
+    : null;
 
   return (
     <div className="app">
@@ -63,6 +86,11 @@ export default function App() {
               <p>Trail Conditions — Taos &amp; Angel Fire</p>
             </div>
           </div>
+          {weatherUpdatedAt && (
+            <div className="weather-status" title="Condition data auto-updated from Open-Meteo">
+              🌤 Weather updated {weatherUpdatedAt}
+            </div>
+          )}
         </div>
       </header>
 
@@ -81,9 +109,7 @@ export default function App() {
             ))}
           </div>
         ) : trails.length === 0 ? (
-          <div className="empty-state">
-            <p>No trails found for this region.</p>
-          </div>
+          <div className="empty-state"><p>No trails found for this region.</p></div>
         ) : (
           <div className="trail-grid">
             {trails.map((trail) => (

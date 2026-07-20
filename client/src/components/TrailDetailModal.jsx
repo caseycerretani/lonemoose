@@ -49,6 +49,9 @@ export default function TrailDetailModal({ trail, onClose, onLogReport }) {
   const condition = trail.latest_condition || 'Unknown';
   const condColor = CONDITION_COLORS[condition] || CONDITION_COLORS.Unknown;
 
+  const riderReports  = reports.filter(r => r.source === 'rider');
+  const weatherReport = reports.find(r => r.source === 'weather');
+
   return (
     <div className="modal-backdrop" onClick={handleBackdropClick} role="dialog" aria-modal="true">
       <div className="modal modal-detail">
@@ -62,6 +65,11 @@ export default function TrailDetailModal({ trail, onClose, onLogReport }) {
             <span className="badge condition-badge" style={{ background: condColor.bg, color: condColor.fg }}>
               {condition}
             </span>
+            {trail.latest_source === 'weather' && (
+              <span className="badge weather-source-badge" title="Condition inferred from Open-Meteo weather data">
+                🌤 Weather
+              </span>
+            )}
             <span className="detail-region">{trail.region}</span>
           </div>
           <h2 className="detail-title">{trail.name}</h2>
@@ -77,11 +85,15 @@ export default function TrailDetailModal({ trail, onClose, onLogReport }) {
               <span className="detail-stat-value">{trail.elevation_gain_ft?.toLocaleString()}</span>
               <span className="detail-stat-label">ft gain</span>
             </div>
-            <div className="detail-stat-divider" />
-            <div className="detail-stat">
-              <RatingStars rating={trail.avg_rating} />
-              <span className="detail-stat-label">{trail.avg_rating ?? '—'} avg</span>
-            </div>
+            {trail.avg_rating && (
+              <>
+                <div className="detail-stat-divider" />
+                <div className="detail-stat">
+                  <RatingStars rating={trail.avg_rating} />
+                  <span className="detail-stat-label">{trail.avg_rating} avg from riders</span>
+                </div>
+              </>
+            )}
           </div>
         </div>
 
@@ -97,14 +109,14 @@ export default function TrailDetailModal({ trail, onClose, onLogReport }) {
             <div className="reports-loading">
               {[1,2,3].map(i => <div key={i} className="report-skeleton" />)}
             </div>
-          ) : reports.length === 0 ? (
+          ) : riderReports.length === 0 ? (
             <div className="reports-empty">
-              <p>No reports yet.</p>
+              <p>No rider reports yet.</p>
               <p>Be the first to log conditions on this trail.</p>
             </div>
           ) : (
             <ul className="reports-list">
-              {reports.map(r => {
+              {riderReports.map(r => {
                 const rc = CONDITION_COLORS[r.condition] || CONDITION_COLORS.Unknown;
                 return (
                   <li key={r.id} className="report-item">
@@ -120,6 +132,26 @@ export default function TrailDetailModal({ trail, onClose, onLogReport }) {
                 );
               })}
             </ul>
+          )}
+
+          {weatherReport && (
+            <div className="weather-report-block">
+              <div className="weather-report-header">
+                <span className="weather-report-label">🌤 Weather Estimate</span>
+                <span className="report-time">{timeAgo(weatherReport.created_at)}</span>
+              </div>
+              <div className="weather-report-body">
+                {(() => {
+                  const rc = CONDITION_COLORS[weatherReport.condition] || CONDITION_COLORS.Unknown;
+                  return (
+                    <span className="badge condition-badge" style={{ background: rc.bg, color: rc.fg }}>
+                      {weatherReport.condition}
+                    </span>
+                  );
+                })()}
+                <p className="weather-report-comment">{weatherReport.comment}</p>
+              </div>
+            </div>
           )}
         </div>
       </div>

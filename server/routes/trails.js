@@ -5,6 +5,8 @@ const db = require('../db');
 // GET /api/trails?region=Taos
 router.get('/', (req, res) => {
   const { region } = req.query;
+
+  // latest_condition: prefer most-recent rider report, fall back to weather
   let query = `
     SELECT
       t.id,
@@ -14,22 +16,27 @@ router.get('/', (req, res) => {
       t.description,
       t.length_miles,
       t.elevation_gain_ft,
-      COUNT(r.id) AS report_count,
-      ROUND(AVG(r.rating), 1) AS avg_rating,
-      (
-        SELECT r2.condition
-        FROM reports r2
-        WHERE r2.trail_id = t.id
-        ORDER BY r2.created_at DESC
-        LIMIT 1
+      COUNT(CASE WHEN r.source = 'rider' THEN 1 END) AS report_count,
+      ROUND(AVG(CASE WHEN r.source = 'rider' THEN r.rating END), 1) AS avg_rating,
+      COALESCE(
+        (SELECT r2.condition FROM reports r2
+         WHERE r2.trail_id = t.id AND r2.source = 'rider'
+         ORDER BY r2.created_at DESC LIMIT 1),
+        (SELECT r2.condition FROM reports r2
+         WHERE r2.trail_id = t.id AND r2.source = 'weather'
+         ORDER BY r2.created_at DESC LIMIT 1)
       ) AS latest_condition,
-      (
-        SELECT r2.created_at
-        FROM reports r2
-        WHERE r2.trail_id = t.id
-        ORDER BY r2.created_at DESC
-        LIMIT 1
-      ) AS latest_report_at
+      COALESCE(
+        (SELECT r2.created_at FROM reports r2
+         WHERE r2.trail_id = t.id AND r2.source = 'rider'
+         ORDER BY r2.created_at DESC LIMIT 1),
+        (SELECT r2.created_at FROM reports r2
+         WHERE r2.trail_id = t.id AND r2.source = 'weather'
+         ORDER BY r2.created_at DESC LIMIT 1)
+      ) AS latest_report_at,
+      (SELECT r2.source FROM reports r2
+       WHERE r2.trail_id = t.id
+       ORDER BY r2.created_at DESC LIMIT 1) AS latest_source
     FROM trails t
     LEFT JOIN reports r ON r.trail_id = t.id
   `;
@@ -50,17 +57,18 @@ router.get('/', (req, res) => {
   }
 });
 
-// GET /api/trails/:id/reports
+// GET /api/trails/:id/reports — rider reports first, then weather
 router.get('/:id/reports', (req, res) => {
-  const { id } = req.params;
   try {
     const reports = db.prepare(`
-      SELECT id, trail_id, condition, rating, comment, created_at
+      SELECT id, trail_id, condition, rating, comment, source, created_at
       FROM reports
       WHERE trail_id = ?
-      ORDER BY created_at DESC
-      LIMIT 10
-    `).all(id);
+      ORDER BY
+        CASE source WHEN 'rider' THEN 0 ELSE 1 END,
+        created_at DESC
+      LIMIT 15
+    `).all(req.params.id);
     res.json(reports);
   } catch (err) {
     res.status(500).json({ error: err.message });

@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const db = require('../db');
 
-// POST /api/reports
+// POST /api/reports  (rider-submitted only)
 router.post('/', (req, res) => {
   const { trail_id, condition, rating, comment } = req.body;
 
@@ -21,17 +21,14 @@ router.post('/', (req, res) => {
   }
 
   const trail = db.prepare('SELECT id FROM trails WHERE id = ?').get(trail_id);
-  if (!trail) {
-    return res.status(404).json({ error: 'Trail not found' });
-  }
+  if (!trail) return res.status(404).json({ error: 'Trail not found' });
 
   try {
-    const stmt = db.prepare(`
-      INSERT INTO reports (trail_id, condition, rating, comment, created_at)
-      VALUES (?, ?, ?, ?, ?)
-    `);
-    const created_at = new Date().toISOString();
-    const result = stmt.run(trail_id, condition, ratingNum, comment || null, created_at);
+    const result = db.prepare(`
+      INSERT INTO reports (trail_id, condition, rating, comment, source, created_at)
+      VALUES (?, ?, ?, ?, 'rider', strftime('%Y-%m-%dT%H:%M:%fZ','now'))
+    `).run(trail_id, condition, ratingNum, comment || null);
+
     const report = db.prepare('SELECT * FROM reports WHERE id = ?').get(result.lastInsertRowid);
     res.status(201).json(report);
   } catch (err) {

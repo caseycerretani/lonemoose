@@ -453,6 +453,63 @@ body {
 
 .btn-secondary:hover:not(:disabled) { background: #374151; }
 
+/* ── Weather status in header ─────────────────────────────── */
+.weather-status {
+  font-size: 0.75rem;
+  color: #6b7280;
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  white-space: nowrap;
+}
+
+/* ── Weather source badge ─────────────────────────────────── */
+.weather-source-badge {
+  background: #1e3a5f;
+  color: #93c5fd;
+  font-size: 0.68rem;
+  font-weight: 600;
+  padding: 0.18rem 0.55rem;
+  border-radius: 9999px;
+  letter-spacing: 0.03em;
+}
+
+/* ── Weather report block in detail modal ─────────────────── */
+.weather-report-block {
+  margin-top: 1.25rem;
+  border: 1px solid #1e3a5f;
+  border-radius: 0.5rem;
+  background: rgba(30, 58, 95, 0.18);
+  padding: 0.85rem 1rem;
+}
+
+.weather-report-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+}
+
+.weather-report-label {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #93c5fd;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.weather-report-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.weather-report-comment {
+  font-size: 0.79rem;
+  color: #6b7280;
+  line-height: 1.5;
+}
+
 /* Interactive stars in modal */
 .report-form .rating-stars { gap: 0.25rem; }
 .report-form .star { font-size: 1.6rem; }
