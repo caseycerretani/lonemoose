@@ -1,13 +1,18 @@
 const express = require('express');
 const cors = require('cors');
+const path = require('path');
 const { runWeatherUpdate, getStatus } = require('./weather');
 
 const app = express();
-const PORT = 3001;
+const PORT = process.env.PORT || 3001;
 const WEATHER_INTERVAL = 6 * 60 * 60 * 1000; // 6 hours
 
 app.use(cors());
 app.use(express.json());
+
+// Serve built React frontend in production
+const publicDir = path.join(__dirname, 'public');
+app.use(express.static(publicDir));
 
 const trailsRouter  = require('./routes/trails');
 const reportsRouter = require('./routes/reports');
@@ -30,6 +35,11 @@ app.post('/api/weather/refresh', async (_req, res) => {
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
+});
+
+// All non-API routes return the React app (client-side routing)
+app.get('*', (req, res) => {
+  res.sendFile(path.join(publicDir, 'index.html'));
 });
 
 app.listen(PORT, () => {
