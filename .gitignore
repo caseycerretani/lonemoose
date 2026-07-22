@@ -1,0 +1,10 @@
+node_modules/
+client/node_modules/
+server/node_modules/
+server/trails.db
+server/trails.db-shm
+server/trails.db-wal
+server/public/
+client/dist/
+.env
+.claude/

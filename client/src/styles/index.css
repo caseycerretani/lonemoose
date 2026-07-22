@@ -1,0 +1,665 @@
+/* ── Reset & Base ─────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  background-color: #0f1117;
+  color: #e5e7eb;
+  min-height: 100vh;
+  line-height: 1.5;
+}
+
+/* ── Layout ───────────────────────────────────────────────── */
+.app { display: flex; flex-direction: column; min-height: 100vh; }
+
+.app-header {
+  background: #16181f;
+  border-bottom: 1px solid #2a2d3a;
+  padding: 1.25rem 1.5rem;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.header-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.logo-icon { font-size: 2rem; line-height: 1; }
+
+.logo h1 {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #f9fafb;
+  letter-spacing: -0.02em;
+}
+
+.logo p {
+  font-size: 0.8rem;
+  color: #6b7280;
+  margin-top: 0.1rem;
+}
+
+.main-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+  width: 100%;
+}
+
+/* ── Region Filter ────────────────────────────────────────── */
+.region-filter {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1.75rem;
+}
+
+.region-pill {
+  padding: 0.45rem 1.1rem;
+  border-radius: 9999px;
+  border: 1px solid #2a2d3a;
+  background: transparent;
+  color: #9ca3af;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  font-family: inherit;
+}
+
+.region-pill:hover {
+  border-color: #4b5563;
+  color: #e5e7eb;
+}
+
+.region-pill.active {
+  background: #3b82f6;
+  border-color: #3b82f6;
+  color: #fff;
+}
+
+/* ── Trail Grid ───────────────────────────────────────────── */
+.trail-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+@media (min-width: 640px) {
+  .trail-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (min-width: 1024px) {
+  .trail-grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+/* ── Trail Card ───────────────────────────────────────────── */
+.trail-card {
+  background: #16181f;
+  border: 1px solid #2a2d3a;
+  border-radius: 0.75rem;
+  padding: 1.25rem;
+  cursor: pointer;
+  transition: border-color 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.trail-card:hover {
+  border-color: #3b82f6;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 20px rgba(59, 130, 246, 0.12);
+}
+
+.trail-card:focus-visible {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+}
+
+.card-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.card-badges {
+  display: flex;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+}
+
+.region-label {
+  font-size: 0.7rem;
+  color: #6b7280;
+  white-space: nowrap;
+  margin-top: 0.1rem;
+}
+
+/* Badges */
+.badge {
+  font-size: 0.7rem;
+  font-weight: 600;
+  padding: 0.2rem 0.55rem;
+  border-radius: 9999px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+}
+
+/* Difficulty badges */
+.difficulty-green  { background: #22c55e; color: #fff; }
+.difficulty-blue   { background: #3b82f6; color: #fff; }
+.difficulty-black  { background: #111827; color: #fff; border: 1px solid #374151; }
+.difficulty-double-black { background: #7c3aed; color: #fff; }
+
+/* Condition badges */
+.condition-dry     { background: #b45309; color: #fef3c7; }
+.condition-tacky   { background: #15803d; color: #dcfce7; }
+.condition-muddy   { background: #92400e; color: #fde68a; }
+.condition-snowy   { background: #0369a1; color: #e0f2fe; }
+.condition-icy     { background: #0891b2; color: #cffafe; }
+.condition-unknown { background: #374151; color: #9ca3af; }
+
+.trail-name {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #f9fafb;
+  line-height: 1.3;
+}
+
+.trail-description {
+  font-size: 0.82rem;
+  color: #9ca3af;
+  line-height: 1.5;
+}
+
+.trail-stats {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 0.25rem;
+}
+
+.stat {
+  display: flex;
+  align-items: baseline;
+  gap: 0.2rem;
+}
+
+.stat-value {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #e5e7eb;
+}
+
+.stat-label {
+  font-size: 0.72rem;
+  color: #6b7280;
+}
+
+.stat-divider {
+  width: 1px;
+  height: 0.8rem;
+  background: #374151;
+}
+
+.card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: auto;
+  padding-top: 0.6rem;
+  border-top: 1px solid #1f2330;
+  gap: 0.5rem;
+}
+
+.rating-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.report-count {
+  font-size: 0.72rem;
+  color: #6b7280;
+}
+
+.last-updated {
+  font-size: 0.72rem;
+  color: #6b7280;
+  white-space: nowrap;
+}
+
+.card-cta {
+  font-size: 0.75rem;
+  color: #3b82f6;
+  margin-top: 0.25rem;
+  opacity: 0;
+  transition: opacity 0.15s ease;
+}
+
+.trail-card:hover .card-cta { opacity: 1; }
+
+/* ── Rating Stars ─────────────────────────────────────────── */
+.rating-stars { display: flex; gap: 0.1rem; }
+
+.star {
+  font-size: 0.9rem;
+  color: #374151;
+  transition: color 0.1s ease;
+}
+
+.star.filled { color: #f59e0b; }
+
+/* ── Skeleton ─────────────────────────────────────────────── */
+@keyframes shimmer {
+  0%   { background-position: -400px 0; }
+  100% { background-position: 400px 0; }
+}
+
+.skeleton {
+  pointer-events: none;
+}
+
+.skeleton-line {
+  border-radius: 0.375rem;
+  background: linear-gradient(90deg, #1f2330 25%, #2a2d3a 50%, #1f2330 75%);
+  background-size: 800px 100%;
+  animation: shimmer 1.4s infinite linear;
+}
+
+.skeleton-title  { height: 1rem; width: 70%; margin-bottom: 0.5rem; }
+.skeleton-badge  { height: 0.75rem; width: 40%; margin-bottom: 0.75rem; }
+.skeleton-text   { height: 0.7rem; width: 90%; margin-bottom: 0.4rem; }
+.skeleton-text.short { width: 55%; }
+
+/* ── Empty State ──────────────────────────────────────────── */
+.empty-state {
+  text-align: center;
+  padding: 4rem 1rem;
+  color: #6b7280;
+  font-size: 0.95rem;
+}
+
+/* ── Modal ────────────────────────────────────────────────── */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 1rem;
+  backdrop-filter: blur(4px);
+}
+
+.modal {
+  background: #16181f;
+  border: 1px solid #2a2d3a;
+  border-radius: 1rem;
+  padding: 1.75rem;
+  width: 100%;
+  max-width: 480px;
+  position: relative;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.modal-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: transparent;
+  border: none;
+  color: #6b7280;
+  font-size: 1.5rem;
+  cursor: pointer;
+  line-height: 1;
+  padding: 0.2rem 0.4rem;
+  border-radius: 0.375rem;
+  transition: color 0.15s, background 0.15s;
+}
+
+.modal-close:hover { color: #e5e7eb; background: #2a2d3a; }
+
+.modal-header { margin-bottom: 1.5rem; }
+
+.modal-title {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #f9fafb;
+}
+
+.modal-subtitle {
+  font-size: 0.82rem;
+  color: #6b7280;
+  margin-top: 0.2rem;
+}
+
+/* ── Report Form ──────────────────────────────────────────── */
+.report-form { display: flex; flex-direction: column; gap: 1.25rem; }
+
+.form-group { display: flex; flex-direction: column; gap: 0.5rem; }
+
+.form-label {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #d1d5db;
+  border: none;
+  padding: 0;
+}
+
+.optional { color: #6b7280; font-weight: 400; }
+
+.condition-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.condition-option {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.35rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: filter 0.15s, box-shadow 0.15s;
+  user-select: none;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.condition-option input[type="radio"] { display: none; }
+
+.condition-option.selected {
+  box-shadow: 0 0 0 2px #fff;
+}
+
+.condition-option:hover { filter: brightness(1.15); }
+
+.form-textarea {
+  background: #0f1117;
+  border: 1px solid #2a2d3a;
+  border-radius: 0.5rem;
+  color: #e5e7eb;
+  font-family: inherit;
+  font-size: 0.875rem;
+  padding: 0.65rem 0.75rem;
+  resize: vertical;
+  transition: border-color 0.15s;
+  width: 100%;
+}
+
+.form-textarea:focus {
+  outline: none;
+  border-color: #3b82f6;
+}
+
+.form-textarea::placeholder { color: #4b5563; }
+
+.form-error {
+  color: #f87171;
+  font-size: 0.82rem;
+  background: rgba(248, 113, 113, 0.1);
+  border: 1px solid rgba(248, 113, 113, 0.3);
+  border-radius: 0.375rem;
+  padding: 0.5rem 0.75rem;
+}
+
+.form-actions {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: flex-end;
+  margin-top: 0.25rem;
+}
+
+.btn {
+  padding: 0.55rem 1.25rem;
+  border-radius: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  font-family: inherit;
+  transition: opacity 0.15s, background 0.15s;
+}
+
+.btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.btn-primary {
+  background: #3b82f6;
+  color: #fff;
+}
+
+.btn-primary:hover:not(:disabled) { background: #2563eb; }
+
+.btn-secondary {
+  background: #2a2d3a;
+  color: #d1d5db;
+}
+
+.btn-secondary:hover:not(:disabled) { background: #374151; }
+
+/* ── Weather status in header ─────────────────────────────── */
+.weather-status {
+  font-size: 0.75rem;
+  color: #6b7280;
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  white-space: nowrap;
+}
+
+/* ── Weather source badge ─────────────────────────────────── */
+.weather-source-badge {
+  background: #1e3a5f;
+  color: #93c5fd;
+  font-size: 0.68rem;
+  font-weight: 600;
+  padding: 0.18rem 0.55rem;
+  border-radius: 9999px;
+  letter-spacing: 0.03em;
+}
+
+/* ── Weather report block in detail modal ─────────────────── */
+.weather-report-block {
+  margin-top: 1.25rem;
+  border: 1px solid #1e3a5f;
+  border-radius: 0.5rem;
+  background: rgba(30, 58, 95, 0.18);
+  padding: 0.85rem 1rem;
+}
+
+.weather-report-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+}
+
+.weather-report-label {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #93c5fd;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.weather-report-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.weather-report-comment {
+  font-size: 0.79rem;
+  color: #6b7280;
+  line-height: 1.5;
+}
+
+/* Interactive stars in modal */
+.report-form .rating-stars { gap: 0.25rem; }
+.report-form .star { font-size: 1.6rem; }
+.report-form .star:hover,
+.report-form .star.filled { color: #f59e0b; }
+
+/* ── Trail Detail Modal ───────────────────────────────────── */
+.modal-detail { max-width: 560px; padding: 0; overflow: hidden; }
+
+.detail-header {
+  padding: 1.75rem 1.75rem 1.25rem;
+  border-bottom: 1px solid #2a2d3a;
+}
+
+.detail-badges {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.75rem;
+}
+
+.detail-region {
+  font-size: 0.7rem;
+  color: #6b7280;
+  margin-left: 0.25rem;
+}
+
+.detail-title {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #f9fafb;
+  line-height: 1.25;
+  margin-bottom: 0.4rem;
+}
+
+.detail-desc {
+  font-size: 0.83rem;
+  color: #9ca3af;
+  line-height: 1.55;
+  margin-bottom: 1rem;
+}
+
+.detail-stats {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.detail-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+
+.detail-stat-value {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #e5e7eb;
+  font-variant-numeric: tabular-nums;
+}
+
+.detail-stat-label {
+  font-size: 0.7rem;
+  color: #6b7280;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.detail-stat-divider {
+  width: 1px;
+  height: 2rem;
+  background: #2a2d3a;
+}
+
+/* ── Reports section ──────────────────────────────────────── */
+.reports-section { padding: 1.25rem 1.75rem 1.75rem; }
+
+.reports-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.reports-title {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #d1d5db;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.btn-sm {
+  padding: 0.35rem 0.85rem;
+  font-size: 0.8rem;
+}
+
+.reports-loading {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.report-skeleton {
+  height: 3.5rem;
+  border-radius: 0.5rem;
+  background: linear-gradient(90deg, #1f2330 25%, #2a2d3a 50%, #1f2330 75%);
+  background-size: 800px 100%;
+  animation: shimmer 1.4s infinite linear;
+}
+
+.reports-empty {
+  text-align: center;
+  padding: 2rem 1rem;
+  color: #6b7280;
+  font-size: 0.85rem;
+  line-height: 1.7;
+}
+
+.reports-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.report-item {
+  background: #0f1117;
+  border: 1px solid #2a2d3a;
+  border-radius: 0.5rem;
+  padding: 0.75rem 1rem;
+}
+
+.report-top {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+
+.report-time {
+  font-size: 0.72rem;
+  color: #6b7280;
+  margin-left: auto;
+}
+
+.report-comment {
+  font-size: 0.82rem;
+  color: #9ca3af;
+  margin-top: 0.5rem;
+  line-height: 1.5;
+}
