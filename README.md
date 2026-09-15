@@ -220,6 +220,43 @@ runs so trends become measurable:
 0 7 * * 1 cd /srv/dcpermits && python -m dcpermits.cli discover --max-probes 150
 ```
 
+## Running it without a machine of your own
+
+`.github/workflows/permit-harvest.yml` runs the agent on GitHub's
+infrastructure, so nothing has to stay powered on. It needs no secrets and
+no services — the runtime is stdlib-only, so there is not even a `pip
+install` step to break.
+
+- **Daily** harvest (09:17 UTC), **weekly** re-discovery (Mondays, 08:43
+  UTC).
+- **Run now:** Actions → *Permit harvest* → *Run workflow*. Works from the
+  GitHub mobile app, and takes `mode`, `states`, `lookback_days`,
+  `max_sources` and `min_tier` so you can fire a scoped 2-minute run
+  instead of a full sweep.
+- **Results are readable without a terminal.** Each run renders the full
+  report into the Actions run summary, and commits `REPORT.md` (which
+  GitHub renders as a page), `data/candidates.csv` and
+  `data/candidates.geojson`.
+- **State persists across runs** because `data/permits.db` and
+  `data/sources.json` are committed back. That is what makes the
+  quarter-over-quarter trends work, and it means the store is restorable
+  from git history.
+
+Two things worth knowing:
+
+1. **`schedule` only fires from the repository's default branch.** On any
+   other branch the cron entries are inert — the *Run workflow* button
+   still works. Merge to the default branch to get the daily runs.
+2. **The committed store grows git history**, since SQLite is a binary
+   blob (~850 KB per run at current volume). Fine for a long while, but if
+   it bothers you, drop `data/permits.db` from the commit step and rely on
+   the uploaded artifacts instead — you lose cross-run trend history in
+   exchange.
+
+Minute budget: a full nationwide harvest is ~25 minutes, so daily runs are
+roughly 750 minutes/month. Public repos get free Actions minutes; the Free
+plan allows 2,000/month for private repos.
+
 ## Design notes
 
 **Resilience.** One broken county endpoint must never abort a nationwide

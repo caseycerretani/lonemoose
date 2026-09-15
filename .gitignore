@@ -1,9 +1,19 @@
-# Runtime output: the harvested store and the discovered source registry.
-# Both are regenerable (`dcpermits discover`, `dcpermits harvest`) and are
-# environment-specific, so they stay out of version control. Curated data
-# that ships with the package lives in dcpermits/data/ instead.
-/data/
-*.db
+# The store and the source registry ARE the agent's accumulated state —
+# quarter-over-quarter trends need history across runs — so the scheduled
+# workflow commits them back and they are tracked here.
+#
+# Note the pattern: `/data/*` excludes the directory *contents*, which is
+# what lets the negations below re-include specific files. `/data/` would
+# exclude the directory itself, and git cannot re-include a file whose
+# parent directory is excluded.
+/data/*
+!/data/permits.db
+!/data/sources.json
+!/data/candidates.csv
+!/data/candidates.geojson
+
+# SQLite sidecar files are transient and must never be committed — a stale
+# WAL alongside a copied database is a corruption risk.
 *.db-wal
 *.db-shm
 
