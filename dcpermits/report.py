@@ -29,7 +29,7 @@ import csv
 import io
 import json
 from collections import Counter, defaultdict
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from typing import Any, Dict, Iterable, List, Optional, Sequence
 
 from .models import ROLE_EXPANSION, ROLE_NEW_BUILD, TIER_CONFIRMED, TIER_PROBABLE
@@ -53,7 +53,7 @@ class MarketRow:
     valuation: float = 0.0
     confirmed: int = 0
     probable: int = 0
-    operators: List[str] = None
+    operators: List[str] = field(default_factory=list)
     latest_date: Optional[str] = None
 
     def to_dict(self) -> Dict[str, Any]:
@@ -67,7 +67,7 @@ class MarketRow:
             "valuation": round(self.valuation, 2),
             "confirmed": self.confirmed,
             "probable": self.probable,
-            "operators": sorted(self.operators or []),
+            "operators": sorted(self.operators),
             "latest_date": self.latest_date,
         }
 
@@ -97,7 +97,7 @@ def by_market(rows: Iterable[Dict[str, Any]], level: str = "jurisdiction"
         key = _market_key(row, level)
         bucket = buckets.get(key)
         if bucket is None:
-            bucket = MarketRow(market=key, state=row.get("state"), operators=[])
+            bucket = MarketRow(market=key, state=row.get("state"))
             buckets[key] = bucket
 
         bucket.permits += 1

@@ -60,6 +60,12 @@ class HttpConfig:
     per_host_delay: float = 1.0
     respect_robots: bool = True
     max_bytes: int = MAX_BYTES
+    # Circuit breaker: after this many consecutive transport failures on one
+    # host, stop retrying requests to it for the rest of the run. Without
+    # this, a host that refuses every connection costs
+    # (retries x backoff) per request, and a publisher with dozens of
+    # layers can consume an entire run's time budget achieving nothing.
+    host_failure_threshold: int = 5
 
 
 class PoliteClient:
@@ -69,6 +75,8 @@ class PoliteClient:
         self.config = config or HttpConfig()
         self._last_request: Dict[str, float] = {}
         self._robots: Dict[str, Optional[urllib.robotparser.RobotFileParser]] = {}
+        # Consecutive transport failures per host, for the circuit breaker.
+        self._host_failures: Dict[str, int] = {}
 
     # ---------------------------------------------------------------- robots
 
@@ -140,8 +148,14 @@ class PoliteClient:
         if headers:
             request_headers.update(headers)
 
+        host = urllib.parse.urlsplit(url).netloc
+        # A host that has failed repeatedly gets one attempt, not a full
+        # retry ladder — it is almost certainly down rather than flaky.
+        tripped = self.is_tripped(host)
+        attempts = 1 if tripped else self.config.max_retries + 1
+
         last_error: Optional[Exception] = None
-        for attempt in range(self.config.max_retries + 1):
+        for attempt in range(attempts):
             self._throttle(url)
             req = urllib.request.Request(url, headers=request_headers)
             try:
@@ -151,12 +165,16 @@ class PoliteClient:
                         raise HttpError(f"response exceeded {self.config.max_bytes} bytes: {url}")
                     if resp.headers.get("Content-Encoding") == "gzip":
                         body = gzip.decompress(body)
+                    # A success clears the host's failure streak.
+                    self._host_failures.pop(host, None)
                     return body
 
             except urllib.error.HTTPError as exc:
                 last_error = exc
+                # An HTTP status means the host is reachable, so it does not
+                # count against the circuit breaker.
                 # Honour Retry-After when the server bothers to send it.
-                if exc.code in RETRYABLE_STATUS and attempt < self.config.max_retries:
+                if exc.code in RETRYABLE_STATUS and attempt < attempts - 1:
                     delay = self._backoff(attempt, exc.headers.get("Retry-After"))
                     log.debug("HTTP %s on %s; retrying in %.1fs", exc.code, url, delay)
                     time.sleep(delay)
@@ -170,14 +188,20 @@ class PoliteClient:
             except (urllib.error.URLError, socket.timeout, TimeoutError,
                     http.client.HTTPException, ConnectionError, OSError) as exc:
                 last_error = exc
-                if attempt < self.config.max_retries:
+                self._host_failures[host] = self._host_failures.get(host, 0) + 1
+                if attempt < attempts - 1:
                     delay = self._backoff(attempt, None)
                     log.debug("transport error on %s (%s); retrying in %.1fs", url, exc, delay)
                     time.sleep(delay)
                     continue
-                raise HttpError(f"transport error for {url}: {exc}") from exc
+                suffix = " (host circuit open)" if tripped else ""
+                raise HttpError(f"transport error for {url}: {exc}{suffix}") from exc
 
         raise HttpError(f"exhausted retries for {url}: {last_error}")
+
+    def is_tripped(self, host: str) -> bool:
+        """Whether a host has exceeded its consecutive-failure threshold."""
+        return self._host_failures.get(host, 0) >= self.config.host_failure_threshold
 
     def _backoff(self, attempt: int, retry_after: Optional[str]) -> float:
         if retry_after:

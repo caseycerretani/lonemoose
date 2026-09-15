@@ -19,7 +19,7 @@ from typing import Dict, List, Optional, Sequence
 
 from .classify import Classifier, ClassifierConfig
 from .connectors import HarvestQuery, get_connector
-from .discovery import Discovery, Registry
+from .discovery import CATALOG_QUERIES, Discovery, Registry
 from .httpclient import HttpConfig, PoliteClient
 from .models import Permit, SourceRef, TIER_UNLIKELY
 from .store import Store
@@ -91,7 +91,6 @@ class Agent:
                  include_arcgis: bool = True) -> Dict[str, int]:
         """Find and validate new sources, persisting the registry."""
         discovery = Discovery(self.client, self.registry)
-        from .discovery import CATALOG_QUERIES
         stats = discovery.run(
             queries=queries or CATALOG_QUERIES,
             per_query=per_query,
