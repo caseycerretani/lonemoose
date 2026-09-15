@@ -1,0 +1,212 @@
+name: Permit harvest
+
+# Runs the agent on GitHub's infrastructure so nothing has to stay on at
+# home. Results are committed back to the repo, so the SQLite store keeps
+# accumulating between runs — which is what makes the quarter-over-quarter
+# trends meaningful — and the rendered report is readable from a phone or
+# tablet without a terminal.
+#
+# NOTE ON SCHEDULES: GitHub only fires `schedule` triggers from the
+# workflow file on the repository's DEFAULT branch. On any other branch the
+# cron entries below are inert; the "Run workflow" button still works and
+# lets you pick a branch.
+
+on:
+  # The "Run now" button. Appears under Actions -> Permit harvest ->
+  # "Run workflow", and works from the GitHub mobile app.
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: "What to run"
+        type: choice
+        default: harvest
+        options: [harvest, discover, both]
+      states:
+        description: "Limit to state codes, space-separated (e.g. 'AZ TX VA'). Blank = nationwide."
+        type: string
+        default: ""
+      lookback_days:
+        description: "How far back to harvest"
+        type: string
+        default: "365"
+      max_sources:
+        description: "Cap sources for a quick run. Blank = all."
+        type: string
+        default: ""
+      min_tier:
+        description: "Minimum confidence in the report"
+        type: choice
+        default: probable
+        options: [confirmed, probable, possible]
+
+  schedule:
+    # Daily harvest with a short look-back, to pick up new permits.
+    # Off-the-hour minutes: scheduled jobs at :00 contend GitHub-wide.
+    - cron: "17 9 * * *"
+    # Weekly re-discovery, to pick up newly published sources.
+    - cron: "43 8 * * 1"
+
+# Least privilege: the job needs to push its results and nothing else.
+permissions:
+  contents: write
+
+# Two runs writing the store and pushing would race. Queue instead of
+# cancelling, so a scheduled run is never silently dropped.
+concurrency:
+  group: permit-harvest-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  harvest:
+    runs-on: ubuntu-latest
+    # A nationwide sweep is ~25 min; this leaves headroom for slow hosts
+    # without letting a hung run burn the monthly minute budget.
+    timeout-minutes: 90
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      # No pip install: the runtime is stdlib-only. Nothing to cache,
+      # nothing to break when an upstream package moves.
+      - name: Show version
+        run: python -m dcpermits.cli --help | head -5
+
+      - name: Decide what to run
+        id: plan
+        env:
+          # The weekly cron expression, matched to pick the discover run.
+          WEEKLY_CRON: "43 8 * * 1"
+          EVENT_SCHEDULE: ${{ github.event.schedule }}
+          INPUT_MODE: ${{ inputs.mode }}
+        run: |
+          set -euo pipefail
+          if [ -n "$INPUT_MODE" ]; then
+            mode="$INPUT_MODE"
+          elif [ "$EVENT_SCHEDULE" = "$WEEKLY_CRON" ]; then
+            mode="both"
+          else
+            mode="harvest"
+          fi
+          echo "mode=$mode" >> "$GITHUB_OUTPUT"
+          echo "Mode: $mode"
+
+      - name: Bootstrap the registry if this is the first run
+        if: steps.plan.outputs.mode == 'harvest'
+        run: |
+          set -euo pipefail
+          # A harvest with no registry would fail. The repo ships a curated
+          # seed source, but discover is what makes it nationwide.
+          if [ ! -f data/sources.json ]; then
+            echo "No registry found; running discovery first."
+            python -m dcpermits.cli --log-level warning discover \
+              --per-query 45 --max-probes 120
+          fi
+
+      - name: Discover sources
+        if: steps.plan.outputs.mode == 'discover' || steps.plan.outputs.mode == 'both'
+        run: |
+          set -euo pipefail
+          python -m dcpermits.cli --log-level warning discover \
+            --per-query 45 --max-probes 150
+
+      - name: Harvest permits
+        if: steps.plan.outputs.mode != 'discover'
+        env:
+          # Inputs go through the environment rather than being interpolated
+          # into the script: `${{ }}` inside a run block is a shell-injection
+          # vector for anyone who can trigger the workflow.
+          STATES: ${{ inputs.states }}
+          LOOKBACK: ${{ inputs.lookback_days }}
+          MAX_SOURCES: ${{ inputs.max_sources }}
+        run: |
+          set -euo pipefail
+          args=(--log-level warning harvest)
+          args+=(--lookback-days "${LOOKBACK:-365}")
+
+          for code in ${STATES:-}; do
+            args+=(--state "$code")
+          done
+          if [ -n "${MAX_SOURCES:-}" ]; then
+            args+=(--max-sources "$MAX_SOURCES")
+          fi
+
+          python -m dcpermits.cli "${args[@]}"
+
+      - name: Build the report
+        env:
+          MIN_TIER: ${{ inputs.min_tier }}
+        run: |
+          set -euo pipefail
+          tier="${MIN_TIER:-probable}"
+          python -m dcpermits.cli report --min-tier "$tier" --out REPORT.md
+          python -m dcpermits.cli report --min-tier "$tier" \
+            --format csv --out data/candidates.csv
+          python -m dcpermits.cli report --min-tier "$tier" \
+            --format geojson --out data/candidates.geojson
+
+      - name: Publish to the run summary
+        # Renders the report directly on the Actions run page, so results
+        # are readable on a tablet without opening a single file.
+        run: |
+          set -euo pipefail
+          {
+            cat REPORT.md
+            echo
+            echo '---'
+            echo '### Store'
+            echo '```'
+            python -m dcpermits.cli status
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Commit results
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git add -A REPORT.md data/permits.db data/sources.json \
+            data/candidates.csv data/candidates.geojson 2>/dev/null || true
+
+          if git diff --cached --quiet; then
+            echo "Nothing changed; not committing."
+            exit 0
+          fi
+
+          # Kept to a single line: unindented lines inside a YAML block
+          # scalar terminate the block and break the workflow file.
+          count=$(python -c "import sqlite3;print(sqlite3.connect('data/permits.db').execute('SELECT COUNT(*) FROM permits').fetchone()[0])" 2>/dev/null || echo "?")
+
+          # [skip ci] stops the push from re-triggering workflows.
+          git commit -m "Permit harvest: ${count} candidates in store [skip ci]"
+
+          # The concurrency group serialises runs, but a human push can
+          # still land mid-run. Rebase rather than fail the job.
+          for attempt in 1 2 3; do
+            if git push; then
+              exit 0
+            fi
+            echo "Push failed (attempt ${attempt}); rebasing on the remote."
+            git pull --rebase --autostash origin "${GITHUB_REF_NAME}" || true
+            sleep $((attempt * 5))
+          done
+          echo "Could not push after 3 attempts." >&2
+          exit 1
+
+      - name: Upload artifacts
+        # Kept regardless of the commit step, so a failed push still leaves
+        # the results downloadable.
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: permit-report
+          path: |
+            REPORT.md
+            data/candidates.csv
+            data/candidates.geojson
+          if-no-files-found: warn
+          retention-days: 30
