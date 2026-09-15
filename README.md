@@ -7,7 +7,7 @@ There is no national building-permit database. Permits are issued by
 thousands of independent cities and counties, each publishing (or not
 publishing) on its own schedule, in its own format, with its own column
 names. This agent assembles that into one queryable, deduplicated dataset
-and scores every record for data-center relevance.
+and scores every record for data-center relevance. 
 
 ```bash
 dcpermits discover                 # find and validate permit sources nationwide
