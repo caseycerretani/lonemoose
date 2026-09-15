@@ -17,11 +17,12 @@ dcpermits report                   # growth analysis
 
 ## What it produced on a live run
 
-A sweep of 55 auto-discovered sources (46 reachable) returned **277
-data-center candidate permits** — before the precision fixes described
-below, which removed the Google Fiber and Apple-retail false positives, so
-a current run returns a smaller and cleaner set. Genuine hyperscale
-projects it surfaced:
+Discovery found 376 candidate datasets and verified 57 sources. A harvest
+across all 58 registry sources (0 errors) returned **262 data-center
+candidate permits** — 152 confirmed, 63 probable, 47 possible — spanning
+2022 to 2026.
+
+Largest projects surfaced:
 
 | Valuation | Market | Type | Description |
 |---|---|---|---|
@@ -30,9 +31,21 @@ projects it surfaced:
 | $190.9M | TX | new build | — |
 | $171.8M | Mesa, AZ | expansion | New 868,431 sf 3-story addition for a data center |
 
-Mesa AZ, Northern Virginia, Central Texas and Chicago are among the largest
-data-center markets in the country, so this is the activity you would want
-a nationwide sweep to find.
+Top markets by growth permits (new build + expansion), at `--min-tier
+probable`:
+
+| Market | Growth | Total | Valuation | Operators |
+|---|---:|---:|---:|---|
+| Mesa, AZ | 16 | 39 | $1.89B | CyrusOne, EdgeConneX |
+| Texas, TX | 7 | 24 | $838.1M | Aligned, CyrusOne, DataBank |
+| Austin, TX | 7 | 65 | $2.1M | — |
+| Chicago, IL | 6 | 51 | $235.3M | — |
+
+Mesa AZ and Central Texas are among the largest data-center markets in the
+country, so this is the activity a nationwide sweep should find. Note the
+Austin/Chicago contrast: both show high permit counts against small
+valuations, which is the fit-out-heavy pattern the growth split exists to
+separate out.
 
 ## How it works
 
@@ -212,9 +225,10 @@ runs so trends become measurable:
 **Resilience.** One broken county endpoint must never abort a nationwide
 run. Per-source failures are caught, recorded on the run row, and reported
 at the end — a run that reaches 90% of sources and names the other 10% is
-far more useful than one that raises on the first timeout. A live run hit 9
-failures out of 55 sources (one host dropping connections) and still
-returned 277 candidates.
+far more useful than one that raises on the first timeout. An early run
+lost 9 of 55 sources to one host dropping connections; after those errors
+were made retryable and a per-host circuit breaker was added, a full run
+completes 58/58 sources with 0 errors.
 
 **Graceful query degradation.** Connectors try the most selective query
 first — server-side keyword filter plus date filter — then relax to
