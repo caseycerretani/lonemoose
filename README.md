@@ -225,6 +225,15 @@ source + permit number, so re-runs and overlapping sources don't duplicate.
 `first_seen` is preserved while the rest of the row refreshes, so status and
 valuation revisions are captured without losing the original detection date.
 
+**Run time is dominated by politeness, not compute.** Per-host rate
+limiting means many layers published on one host serialize, and the
+keyword set is pushed server-side in batches to stay inside URL limits, so
+a source costs several requests. A full nationwide sweep is a
+tens-of-minutes job, not seconds — which is why it is designed to run on a
+schedule against an accumulating store rather than on demand. Use
+`--state`, `--max-sources` or `--connector` to scope an interactive run,
+and raise `--delay` (never lower it much) if a publisher asks you to.
+
 **Conservative attribution.** A wrong state silently moves permits into the
 wrong market, which is worse than no state at all. State inference uses
 `.xx.us` domains, full state names, a portal-keyword map, and bare
@@ -290,7 +299,7 @@ which encodes the false-positive classes above as regression tests.
 ## Tests
 
 ```bash
-python -m pytest        # 249 tests, fully offline
+python -m pytest        # 266 tests, fully offline
 ```
 
 Connector tests use a fake HTTP client with canned responses, so the suite
