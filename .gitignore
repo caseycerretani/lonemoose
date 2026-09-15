@@ -1,0 +1,17 @@
+# Runtime output: the harvested store and the discovered source registry.
+# Both are regenerable (`dcpermits discover`, `dcpermits harvest`) and are
+# environment-specific, so they stay out of version control. Curated data
+# that ships with the package lives in dcpermits/data/ instead.
+/data/
+*.db
+*.db-wal
+*.db-shm
+
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+.pytest_cache/
+.venv/
+venv/

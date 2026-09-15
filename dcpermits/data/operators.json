@@ -1,0 +1,356 @@
+{
+  "_comment": [
+    "Operator registry used to attribute a permit to a data-center owner.",
+    "",
+    "'aliases' are names that appear directly in owner/applicant fields.",
+    "'shells' are land-holding or development entities that have been",
+    "publicly reported in local press and county filings as fronting for the",
+    "operator. Shell matching is a HEURISTIC: entities get renamed, reused,",
+    "and occasionally reported wrongly, so shell hits are scored lower than",
+    "direct hits and are always reported with the matched string so a human",
+    "can check. Treat a shell match as a lead, not a fact.",
+    "",
+    "This file is meant to be edited. Add local developers and newly",
+    "reported shells as you find them; nothing in the code is hardcoded to",
+    "these specific names."
+  ],
+  "operators": [
+    {
+      "name": "Amazon Web Services",
+      "category": "hyperscaler",
+      "aliases": [
+        "amazon web services",
+        "amazon data services",
+        "aws",
+        "amazon.com services",
+        "amazon com services"
+      ],
+      "shells": [
+        "vadata"
+      ]
+    },
+    {
+      "name": "Microsoft",
+      "category": "hyperscaler",
+      "aliases": [
+        "microsoft corp",
+        "microsoft corporation",
+        "microsoft azure",
+        "microsoft data center"
+      ],
+      "shells": []
+    },
+    {
+      "name": "Google",
+      "category": "hyperscaler",
+      "aliases": [
+        "google llc",
+        "google inc",
+        "google data center"
+      ],
+      "shells": [
+        "sharka llc",
+        "jet stream llc"
+      ]
+    },
+    {
+      "name": "Meta",
+      "category": "hyperscaler",
+      "aliases": [
+        "meta platforms",
+        "facebook inc",
+        "facebook llc",
+        "meta data center"
+      ],
+      "shells": [
+        "greater kudu",
+        "raven northbrook"
+      ]
+    },
+    {
+      "name": "Apple",
+      "category": "hyperscaler",
+      "aliases": [
+        "apple inc"
+      ],
+      "shells": []
+    },
+    {
+      "name": "Oracle",
+      "category": "hyperscaler",
+      "aliases": [
+        "oracle america",
+        "oracle corporation",
+        "oracle cloud"
+      ],
+      "shells": []
+    },
+    {
+      "name": "Equinix",
+      "category": "colocation",
+      "aliases": [
+        "equinix"
+      ],
+      "shells": []
+    },
+    {
+      "name": "Digital Realty",
+      "category": "colocation",
+      "aliases": [
+        "digital realty",
+        "digital realty trust"
+      ],
+      "shells": []
+    },
+    {
+      "name": "CyrusOne",
+      "category": "colocation",
+      "aliases": [
+        "cyrusone",
+        "cyrus one"
+      ],
+      "shells": []
+    },
+    {
+      "name": "QTS",
+      "category": "colocation",
+      "aliases": [
+        "qts realty",
+        "qts data centers",
+        "quality technology services"
+      ],
+      "shells": []
+    },
+    {
+      "name": "Vantage Data Centers",
+      "category": "colocation",
+      "aliases": [
+        "vantage data center"
+      ],
+      "shells": []
+    },
+    {
+      "name": "Aligned Data Centers",
+      "category": "colocation",
+      "aliases": [
+        "aligned data center",
+        "aligned energy"
+      ],
+      "shells": []
+    },
+    {
+      "name": "Switch",
+      "category": "colocation",
+      "aliases": [
+        "switch inc",
+        "switch ltd",
+        "supernap"
+      ],
+      "shells": []
+    },
+    {
+      "name": "STACK Infrastructure",
+      "category": "colocation",
+      "aliases": [
+        "stack infrastructure"
+      ],
+      "shells": []
+    },
+    {
+      "name": "EdgeConneX",
+      "category": "colocation",
+      "aliases": [
+        "edgeconnex",
+        "edge connex"
+      ],
+      "shells": []
+    },
+    {
+      "name": "DataBank",
+      "category": "colocation",
+      "aliases": [
+        "databank"
+      ],
+      "shells": []
+    },
+    {
+      "name": "Flexential",
+      "category": "colocation",
+      "aliases": [
+        "flexential"
+      ],
+      "shells": []
+    },
+    {
+      "name": "CoreSite",
+      "category": "colocation",
+      "aliases": [
+        "coresite"
+      ],
+      "shells": []
+    },
+    {
+      "name": "Iron Mountain",
+      "category": "colocation",
+      "aliases": [
+        "iron mountain data center"
+      ],
+      "shells": []
+    },
+    {
+      "name": "NTT",
+      "category": "colocation",
+      "aliases": [
+        "ntt global data centers",
+        "ntt data center",
+        "raging wire",
+        "ragingwire"
+      ],
+      "shells": []
+    },
+    {
+      "name": "Compass Datacenters",
+      "category": "colocation",
+      "aliases": [
+        "compass datacenter",
+        "compass data center"
+      ],
+      "shells": []
+    },
+    {
+      "name": "Prime Data Centers",
+      "category": "colocation",
+      "aliases": [
+        "prime data center"
+      ],
+      "shells": []
+    },
+    {
+      "name": "TierPoint",
+      "category": "colocation",
+      "aliases": [
+        "tierpoint"
+      ],
+      "shells": []
+    },
+    {
+      "name": "Cologix",
+      "category": "colocation",
+      "aliases": [
+        "cologix"
+      ],
+      "shells": []
+    },
+    {
+      "name": "CloudHQ",
+      "category": "colocation",
+      "aliases": [
+        "cloudhq",
+        "cloud hq"
+      ],
+      "shells": []
+    },
+    {
+      "name": "Yondr",
+      "category": "colocation",
+      "aliases": [
+        "yondr group"
+      ],
+      "shells": []
+    },
+    {
+      "name": "Novva",
+      "category": "colocation",
+      "aliases": [
+        "novva data center"
+      ],
+      "shells": []
+    },
+    {
+      "name": "PowerHouse Data Centers",
+      "category": "colocation",
+      "aliases": [
+        "powerhouse data center"
+      ],
+      "shells": []
+    },
+    {
+      "name": "Corscale",
+      "category": "colocation",
+      "aliases": [
+        "corscale"
+      ],
+      "shells": []
+    },
+    {
+      "name": "CoreWeave",
+      "category": "ai_compute",
+      "aliases": [
+        "coreweave"
+      ],
+      "shells": []
+    },
+    {
+      "name": "Crusoe",
+      "category": "ai_compute",
+      "aliases": [
+        "crusoe energy",
+        "crusoe cloud"
+      ],
+      "shells": []
+    },
+    {
+      "name": "Lambda Labs",
+      "category": "ai_compute",
+      "aliases": [
+        "lambda labs"
+      ],
+      "shells": []
+    },
+    {
+      "name": "xAI",
+      "category": "ai_compute",
+      "aliases": [
+        "x.ai",
+        "xai corp",
+        "colossus data center"
+      ],
+      "shells": []
+    },
+    {
+      "name": "OpenAI / Stargate",
+      "category": "ai_compute",
+      "aliases": [
+        "openai",
+        "stargate data center",
+        "stargate site"
+      ],
+      "shells": []
+    },
+    {
+      "name": "Nebius",
+      "category": "ai_compute",
+      "aliases": [
+        "nebius"
+      ],
+      "shells": []
+    },
+    {
+      "name": "Tract",
+      "category": "developer",
+      "aliases": [
+        "tract development",
+        "tract land"
+      ],
+      "shells": []
+    },
+    {
+      "name": "Related Digital",
+      "category": "developer",
+      "aliases": [
+        "related digital"
+      ],
+      "shells": []
+    }
+  ]
+}
