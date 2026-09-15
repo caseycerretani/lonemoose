@@ -1,0 +1,46 @@
+{
+  "_comment": [
+    "Hand-curated sources, merged on top of the discovered registry so they",
+    "always win over whatever discovery inferred.",
+    "",
+    "Use this for two cases:",
+    "  1. A source neither catalog indexes (a bare CSV export, a feature",
+    "     layer not published to ArcGIS Hub).",
+    "  2. A source discovery finds but mis-labels — pin the jurisdiction,",
+    "     state, or field_map by hand here.",
+    "",
+    "Leave field_map/text_fields empty to have the connector introspect the",
+    "endpoint on first use; set them to override the heuristic mapping.",
+    "Set 'verified': true for a source to be included in a harvest.",
+    "",
+    "The entry below is a working example (Chicago, whose schema splits the",
+    "address across three columns). Run `dcpermits inspect <endpoint>` to",
+    "generate the field_map for a new source."
+  ],
+  "sources": [
+    {
+      "source_id": "socrata:data.cityofchicago.org:ydr8-5enu",
+      "connector": "socrata",
+      "endpoint": "https://data.cityofchicago.org/resource/ydr8-5enu.json",
+      "jurisdiction": "Chicago",
+      "state": "IL",
+      "notes": "Building Permits",
+      "field_map": {
+        "permit_number": "permit_",
+        "permit_type": "permit_type",
+        "work_class": "work_type",
+        "status": "permit_status",
+        "description": "work_description",
+        "valuation": "reported_cost",
+        "applied_date": "application_start_date",
+        "issued_date": "issue_date",
+        "latitude": "latitude",
+        "longitude": "longitude"
+      },
+      "text_fields": ["work_description", "permit_type", "work_type"],
+      "address_parts": ["street_number", "street_direction", "street_name"],
+      "date_field": "issue_date",
+      "verified": true
+    }
+  ]
+}

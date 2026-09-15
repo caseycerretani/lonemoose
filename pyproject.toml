@@ -1,0 +1,30 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "dcpermits"
+version = "0.1.0"
+description = "Agent that harvests public building-permit data nationwide and surfaces data-center construction activity"
+readme = "README.md"
+requires-python = ">=3.9"
+license = { text = "MIT" }
+
+# Runtime is deliberately stdlib-only so the agent can run in a bare container
+# or cron job with no install step. Dev extras are only needed for the tests.
+dependencies = []
+
+[project.optional-dependencies]
+dev = ["pytest>=7"]
+
+[project.scripts]
+dcpermits = "dcpermits.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["dcpermits*"]
+
+[tool.setuptools.package-data]
+dcpermits = ["data/*.json"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
