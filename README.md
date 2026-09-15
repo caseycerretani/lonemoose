@@ -17,8 +17,11 @@ dcpermits report                   # growth analysis
 
 ## What it produced on a live run
 
-A single sweep of 55 auto-discovered sources returned **277 data-center
-candidate permits**, including genuine hyperscale projects:
+A sweep of 55 auto-discovered sources (46 reachable) returned **277
+data-center candidate permits** — before the precision fixes described
+below, which removed the Google Fiber and Apple-retail false positives, so
+a current run returns a smaller and cleaner set. Genuine hyperscale
+projects it surfaced:
 
 | Valuation | Market | Type | Description |
 |---|---|---|---|
