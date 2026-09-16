@@ -181,3 +181,14 @@ def test_run_summary_is_informative(tmp_db, tmp_registry, fake_client):
     summary = agent.harvest(since="2026-01-01").summary()
     assert "sources ok" in summary
     assert "candidates" in summary
+
+
+def test_summary_reports_both_writes_and_distinct_store_size(tmp_db, tmp_registry,
+                                                             fake_client):
+    """The two numbers legitimately differ and must both be visible."""
+    seeded_registry(tmp_registry, good_source())
+    fake_client.add("/api/views/", VIEW).add("/resource/abcd-1234.json", ROWS)
+    agent = make_agent(tmp_db, tmp_registry, fake_client)
+    result = agent.harvest(since="2026-01-01")
+    assert result.store_total == 1
+    assert "distinct in store" in result.summary()

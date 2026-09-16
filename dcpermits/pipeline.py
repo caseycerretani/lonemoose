@@ -61,6 +61,12 @@ class RunResult:
     rows_fetched: int = 0
     candidates: int = 0
     stored: int = 0
+    # Distinct permits in the store once the run finished. Reported
+    # alongside `stored` because the two legitimately differ: `stored`
+    # counts writes, and overlapping sources republish the same permit, so
+    # a run can write more rows than it adds. Showing both keeps the
+    # numbers reconcilable instead of looking like a miscount.
+    store_total: int = 0
     errors: List[str] = field(default_factory=list)
     by_tier: Dict[str, int] = field(default_factory=dict)
 
@@ -69,7 +75,8 @@ class RunResult:
         return (
             f"run {self.run_id}: {self.sources_ok}/{self.sources_tried} sources ok, "
             f"{self.rows_fetched} rows fetched, {self.candidates} candidates "
-            f"({tiers}), {self.stored} stored, {len(self.errors)} errors"
+            f"({tiers}), {self.stored} written, "
+            f"{self.store_total} distinct in store, {len(self.errors)} errors"
         )
 
 
@@ -157,6 +164,7 @@ class Agent:
                 log.info("%s: %d rows -> %d candidates",
                          source.source_id, permits["fetched"], len(keep))
 
+            result.store_total = store.total()
             store.finish_run(
                 run_id,
                 sources_tried=result.sources_tried,

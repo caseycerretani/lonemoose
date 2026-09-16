@@ -183,3 +183,28 @@ def test_store_reopens_existing_database(tmp_db):
         store.upsert_many([make_permit()])
     with Store(tmp_db) as store:
         assert store.total() == 1
+
+
+def test_upsert_deduplicates_within_a_batch(tmp_db):
+    """Overlapping sources republish the same permit.
+
+    Without in-batch dedup the return value counts write attempts, so a
+    run summary reports more "stored" than the store actually holds.
+    """
+    with Store(tmp_db) as store:
+        written = store.upsert_many([
+            make_permit(permit_number="B-1"),
+            make_permit(permit_number="B-1"),   # same uid
+            make_permit(permit_number="B-2"),
+        ])
+        assert written == 2
+        assert store.total() == 2
+
+
+def test_upsert_keeps_the_last_duplicate_in_a_batch(tmp_db):
+    with Store(tmp_db) as store:
+        store.upsert_many([
+            make_permit(permit_number="B-1", status="Applied"),
+            make_permit(permit_number="B-1", status="Issued"),
+        ])
+        assert store.query(min_tier=TIER_CONFIRMED)[0]["status"] == "Issued"

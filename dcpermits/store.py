@@ -114,9 +114,17 @@ class Store:
     # ---------------------------------------------------------------- write
 
     def upsert_many(self, permits: Iterable[Permit]) -> int:
-        """Insert or refresh permits. Returns the number written."""
+        """Insert or refresh permits. Returns the number of distinct permits written.
+
+        The batch is deduplicated on ``uid`` first. Overlapping sources
+        republish the same permit — a live run classified 262 candidates
+        that collapsed to 239 distinct permits — and without this the
+        return value counts write attempts rather than permits, so a run
+        summary reports more "stored" than the store actually holds.
+        Later duplicates win, being the more recently fetched copy.
+        """
         now = utcnow_iso()
-        rows = []
+        deduped: Dict[str, List[Any]] = {}
         for permit in permits:
             values = [
                 permit.uid, permit.source_id, permit.jurisdiction, permit.state,
@@ -130,8 +138,9 @@ class Store:
                 json.dumps(permit.dc_signals), permit.dc_operator, permit.dc_role,
                 json.dumps(permit.raw, default=str),
             ]
-            rows.append(values + [now, now])
+            deduped[permit.uid] = values + [now, now]
 
+        rows = list(deduped.values())
         if not rows:
             return 0
 

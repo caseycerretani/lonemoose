@@ -18,9 +18,11 @@ dcpermits report                   # growth analysis
 ## What it produced on a live run
 
 Discovery found 376 candidate datasets and verified 57 sources. A harvest
-across all 58 registry sources (0 errors) returned **262 data-center
-candidate permits** — 152 confirmed, 63 probable, 47 possible — spanning
-2022 to 2026.
+across all 58 registry sources (0 errors) classified **262 data-center
+candidates**, which dedup to **239 distinct permits** in the store (136
+confirmed, 56 probable, 47 possible), spanning 2022 to 2026. The gap is
+overlapping sources republishing the same permit — the two numbers are
+reported separately so they reconcile.
 
 Largest projects surfaced:
 
