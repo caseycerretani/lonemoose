@@ -1,10 +1,10 @@
 # Data-center permit activity
 
-**192 candidate permits** from 2022-09-19 to 2026-08-05
+**193 candidate permits** from 2022-09-19 to 2026-09-16
 
-Confidence: confirmed 136, probable 56
+Confidence: confirmed 137, probable 56
 
-Project type: equipment 2, expansion 12, fitout 76, new_build 26, other 58, power_infrastructure 18
+Project type: equipment 2, expansion 13, fitout 76, new_build 26, other 58, power_infrastructure 18
 
 ## Markets
 
@@ -12,8 +12,8 @@ Project type: equipment 2, expansion 12, fitout 76, new_build 26, other 58, powe
 |---|---:|---:|---:|---:|---|
 | Mesa, AZ | 16 | 39 | $1.89B | 36 | CyrusOne, EdgeConneX |
 | Texas, TX | 7 | 24 | $838.1M | 18 | Aligned Data Centers, CyrusOne, DataBank |
+| Chicago, IL | 7 | 52 | $386.4M | 36 | — |
 | Austin, TX | 7 | 65 | $2.1M | 37 | — |
-| Chicago, IL | 6 | 51 | $235.3M | 35 | — |
 | Los Angeles, CA | 2 | 4 | $3.1M | 3 | — |
 | Williamson County, TX | 0 | 8 | — | 6 | — |
 | Montgomery County, MD | 0 | 1 | — | 1 | — |
@@ -22,7 +22,7 @@ Project type: equipment 2, expansion 12, fitout 76, new_build 26, other 58, powe
 
 | Market | Quarter | Permits | Prior | Change | % |
 |---|---|---:|---:|---:|---:|
-| IL | 2026-Q3 | 2 | 1 | +1 | +100% |
+| IL | 2026-Q3 | 3 | 1 | +2 | +200% |
 | TX | 2026-Q3 | 0 | 2 | -2 | -100% |
 
 ## Operators
@@ -37,7 +37,7 @@ Project type: equipment 2, expansion 12, fitout 76, new_build 26, other 58, powe
 
 ## Capacity estimate (heuristic)
 
-~**158 MW** implied by $1.58B of new-build/expansion valuation across 30 permits at $10.0M/MW.
+~**174 MW** implied by $1.73B of new-build/expansion valuation across 31 permits at $10.0M/MW.
 
 > Order-of-magnitude heuristic only. Permit valuations are self-declared, exclude IT equipment, and are missing entirely in many jurisdictions. Not a substitute for utility interconnection data.
 
@@ -50,6 +50,8 @@ Project type: equipment 2, expansion 12, fitout 76, new_build 26, other 58, powe
 - **$190.9M** — Texas, TX · 2024-12-03 · confirmed/new_build
 - **$171.8M** — Mesa, AZ · 2024-03-28 · confirmed/expansion
   - New 868,431sf 3-story addition for a data center. IB construction. B/ S-1/ S-2 Occupancy. Special inspection required for fabricator, steel, concrete, foundation, anchoring. 2-2" domestic meters install with this permit…
+- **$151.1M** — Chicago, IL · 2026-09-16 · confirmed/expansion
+  - PHASE 3 OF 3: INTERIOR ALTERATIONS TO EXISTING 7-STORY OFFICE BUILDING TO CONVERT TO A DATA CENTER. WORK TO INCLUDE NEW EQUIPMENT WITH ASSOCIATED MEP UPGRADES. PHASE 1 DEMOLITION ONLY WORK PERMITTED UNDER 101083036. PHA…
 - **$125.0M** — Texas, TX · 2025-09-11 · confirmed/other
 - **$120.0M** — Texas, TX · 2026-02-17 · confirmed/other · Aligned Data Centers
 - **$84.6M** — Mesa, AZ · 2024-05-08 · confirmed/new_build
@@ -73,4 +75,3 @@ Project type: equipment 2, expansion 12, fitout 76, new_build 26, other 58, powe
 - **$41.5M** — Texas, TX · 2023-08-25 · probable/other · CyrusOne
 - **$41.5M** — Texas, TX · 2023-02-02 · probable/other · CyrusOne
 - **$40.0M** — Texas, TX · 2024-07-18 · confirmed/new_build
-- **$39.3M** — Texas, TX · 2024-07-29 · confirmed/other
