@@ -26,6 +26,39 @@
       "verified": true
     },
     {
+      "source_id": "arcgis:maps2-dcgis-dc-gov-dcgis-services-ddot-tops-mapserver-0",
+      "connector": "arcgis",
+      "endpoint": "https://maps2.dcgis.dc.gov/dcgis/rest/services/DDOT/TOPS/MapServer/0",
+      "jurisdiction": "Washington, DC",
+      "state": "DC",
+      "field_map": {
+        "applied_date": "ApplicationDate",
+        "final_date": "ExpirationDate",
+        "issued_date": "IssueDate",
+        "latitude": "Latitude",
+        "longitude": "Longitude",
+        "contractor": "ContractorName",
+        "owner": "OwnerName",
+        "permit_number": "PermitNumber",
+        "status": "StatusDescription",
+        "zipcode": "ZipCode",
+        "permit_type": "PermitType",
+        "address": "WorkLocationFullAddress",
+        "applicant": "ApplicantCompany"
+      },
+      "text_fields": [
+        "ContractorName",
+        "OwnerName",
+        "ApplicantCompany",
+        "StatusDescription"
+      ],
+      "address_parts": [],
+      "date_field": "IssueDate",
+      "notes": "Construction Permit",
+      "record_count": 541598,
+      "verified": true
+    },
+    {
       "source_id": "arcgis:maps2-dcgis-dc-gov-dcgis-services-feeds-dcra-featureserver-10",
       "connector": "arcgis",
       "endpoint": "https://maps2.dcgis.dc.gov/dcgis/rest/services/FEEDS/DCRA/FeatureServer/10",
@@ -601,6 +634,366 @@
       "date_field": "ISSUE_DATE",
       "notes": "Building Permits - 2019",
       "record_count": 53514,
+      "verified": true
+    },
+    {
+      "source_id": "arcgis:maps2-dcgis-dc-gov-dcgis-services-feeds-ddot-featureserver-0",
+      "connector": "arcgis",
+      "endpoint": "https://maps2.dcgis.dc.gov/dcgis/rest/services/FEEDS/DDOT/FeatureServer/0",
+      "jurisdiction": "Washington, DC",
+      "state": "DC",
+      "field_map": {
+        "applied_date": "APPLICATIONDATE",
+        "final_date": "EXPIRATIONDATE",
+        "issued_date": "ISSUEDATE",
+        "latitude": "LATITUDE",
+        "longitude": "LONGITUDE",
+        "contractor": "CONTRACTORNAME",
+        "owner": "OWNERNAME",
+        "permit_number": "PERMITNUMBER",
+        "status": "STATUS",
+        "address": "WLFULLADDRESS",
+        "applicant": "APPLICANTCOMPANYNAME"
+      },
+      "text_fields": [
+        "CONTRACTORNAME",
+        "OWNERNAME",
+        "APPLICANTCOMPANYNAME"
+      ],
+      "address_parts": [],
+      "date_field": "ISSUEDATE",
+      "notes": "Construction Permit - 2018",
+      "record_count": 16668,
+      "verified": true
+    },
+    {
+      "source_id": "arcgis:maps2-dcgis-dc-gov-dcgis-services-feeds-ddot-featureserver-10",
+      "connector": "arcgis",
+      "endpoint": "https://maps2.dcgis.dc.gov/dcgis/rest/services/FEEDS/DDOT/FeatureServer/10",
+      "jurisdiction": "Washington, DC",
+      "state": "DC",
+      "field_map": {
+        "applied_date": "APPLICATIONDATE",
+        "final_date": "EXPIRATIONDATE",
+        "issued_date": "ISSUEDATE",
+        "latitude": "LATITUDE",
+        "longitude": "LONGITUDE",
+        "contractor": "CONTRACTORNAME",
+        "owner": "OWNERNAME",
+        "permit_number": "PERMITNUMBER",
+        "status": "STATUS",
+        "address": "WLFULLADDRESS",
+        "applicant": "APPLICANTCOMPANYNAME"
+      },
+      "text_fields": [
+        "CONTRACTORNAME",
+        "OWNERNAME",
+        "APPLICANTCOMPANYNAME"
+      ],
+      "address_parts": [],
+      "date_field": "ISSUEDATE",
+      "notes": "Construction Permit - 2021",
+      "record_count": 21211,
+      "verified": true
+    },
+    {
+      "source_id": "arcgis:maps2-dcgis-dc-gov-dcgis-services-feeds-ddot-featureserver-13",
+      "connector": "arcgis",
+      "endpoint": "https://maps2.dcgis.dc.gov/dcgis/rest/services/FEEDS/DDOT/FeatureServer/13",
+      "jurisdiction": "Washington, DC",
+      "state": "DC",
+      "field_map": {
+        "applied_date": "APPLICATIONDATE",
+        "final_date": "EXPIRATIONDATE",
+        "issued_date": "ISSUEDATE",
+        "latitude": "LATITUDE",
+        "longitude": "LONGITUDE",
+        "contractor": "CONTRACTORNAME",
+        "owner": "OWNERNAME",
+        "permit_number": "PERMITNUMBER",
+        "status": "STATUS",
+        "address": "WLFULLADDRESS",
+        "applicant": "APPLICANTCOMPANYNAME"
+      },
+      "text_fields": [
+        "CONTRACTORNAME",
+        "OWNERNAME",
+        "APPLICANTCOMPANYNAME"
+      ],
+      "address_parts": [],
+      "date_field": "ISSUEDATE",
+      "notes": "Construction Permit - 2014",
+      "record_count": 11828,
+      "verified": true
+    },
+    {
+      "source_id": "arcgis:maps2-dcgis-dc-gov-dcgis-services-feeds-ddot-featureserver-14",
+      "connector": "arcgis",
+      "endpoint": "https://maps2.dcgis.dc.gov/dcgis/rest/services/FEEDS/DDOT/FeatureServer/14",
+      "jurisdiction": "Washington, DC",
+      "state": "DC",
+      "field_map": {
+        "applied_date": "APPLICATIONDATE",
+        "final_date": "EXPIRATIONDATE",
+        "issued_date": "ISSUEDATE",
+        "latitude": "LATITUDE",
+        "longitude": "LONGITUDE",
+        "contractor": "CONTRACTORNAME",
+        "owner": "OWNERNAME",
+        "permit_number": "PERMITNUMBER",
+        "status": "STATUS",
+        "address": "WLFULLADDRESS",
+        "applicant": "APPLICANTCOMPANYNAME"
+      },
+      "text_fields": [
+        "CONTRACTORNAME",
+        "OWNERNAME",
+        "APPLICANTCOMPANYNAME"
+      ],
+      "address_parts": [],
+      "date_field": "ISSUEDATE",
+      "notes": "Construction Permit - 2013",
+      "record_count": 9979,
+      "verified": true
+    },
+    {
+      "source_id": "arcgis:maps2-dcgis-dc-gov-dcgis-services-feeds-ddot-featureserver-15",
+      "connector": "arcgis",
+      "endpoint": "https://maps2.dcgis.dc.gov/dcgis/rest/services/FEEDS/DDOT/FeatureServer/15",
+      "jurisdiction": "Washington, DC",
+      "state": "DC",
+      "field_map": {
+        "applied_date": "APPLICATIONDATE",
+        "final_date": "EXPIRATIONDATE",
+        "issued_date": "ISSUEDATE",
+        "latitude": "LATITUDE",
+        "longitude": "LONGITUDE",
+        "contractor": "CONTRACTORNAME",
+        "owner": "OWNERNAME",
+        "permit_number": "PERMITNUMBER",
+        "status": "STATUS",
+        "address": "WLFULLADDRESS",
+        "applicant": "APPLICANTCOMPANYNAME"
+      },
+      "text_fields": [
+        "CONTRACTORNAME",
+        "OWNERNAME",
+        "APPLICANTCOMPANYNAME"
+      ],
+      "address_parts": [],
+      "date_field": "ISSUEDATE",
+      "notes": "Construction Permit - 2012",
+      "record_count": 7136,
+      "verified": true
+    },
+    {
+      "source_id": "arcgis:maps2-dcgis-dc-gov-dcgis-services-feeds-ddot-featureserver-28",
+      "connector": "arcgis",
+      "endpoint": "https://maps2.dcgis.dc.gov/dcgis/rest/services/FEEDS/DDOT/FeatureServer/28",
+      "jurisdiction": "Washington, DC",
+      "state": "DC",
+      "field_map": {
+        "applied_date": "APPLICATIONDATE",
+        "final_date": "EXPIRATIONDATE",
+        "issued_date": "ISSUEDATE",
+        "latitude": "LATITUDE",
+        "longitude": "LONGITUDE",
+        "contractor": "CONTRACTORNAME",
+        "owner": "OWNERNAME",
+        "permit_number": "PERMITNUMBER",
+        "status": "STATUS",
+        "address": "WLFULLADDRESS",
+        "applicant": "APPLICANTCOMPANYNAME"
+      },
+      "text_fields": [
+        "CONTRACTORNAME",
+        "OWNERNAME",
+        "APPLICANTCOMPANYNAME"
+      ],
+      "address_parts": [],
+      "date_field": "ISSUEDATE",
+      "notes": "Construction Permit - 2016",
+      "record_count": 15437,
+      "verified": true
+    },
+    {
+      "source_id": "arcgis:maps2-dcgis-dc-gov-dcgis-services-feeds-ddot-featureserver-29",
+      "connector": "arcgis",
+      "endpoint": "https://maps2.dcgis.dc.gov/dcgis/rest/services/FEEDS/DDOT/FeatureServer/29",
+      "jurisdiction": "Washington, DC",
+      "state": "DC",
+      "field_map": {
+        "applied_date": "APPLICATIONDATE",
+        "final_date": "EXPIRATIONDATE",
+        "issued_date": "ISSUEDATE",
+        "latitude": "LATITUDE",
+        "longitude": "LONGITUDE",
+        "contractor": "CONTRACTORNAME",
+        "owner": "OWNERNAME",
+        "permit_number": "PERMITNUMBER",
+        "status": "STATUS",
+        "address": "WLFULLADDRESS",
+        "applicant": "APPLICANTCOMPANYNAME"
+      },
+      "text_fields": [
+        "CONTRACTORNAME",
+        "OWNERNAME",
+        "APPLICANTCOMPANYNAME"
+      ],
+      "address_parts": [],
+      "date_field": "ISSUEDATE",
+      "notes": "Construction Permit - 2015",
+      "record_count": 14541,
+      "verified": true
+    },
+    {
+      "source_id": "arcgis:maps2-dcgis-dc-gov-dcgis-services-feeds-ddot-featureserver-39",
+      "connector": "arcgis",
+      "endpoint": "https://maps2.dcgis.dc.gov/dcgis/rest/services/FEEDS/DDOT/FeatureServer/39",
+      "jurisdiction": "Washington, DC",
+      "state": "DC",
+      "field_map": {
+        "applied_date": "APPLICATIONDATE",
+        "final_date": "EXPIRATIONDATE",
+        "issued_date": "ISSUEDATE",
+        "latitude": "LATITUDE",
+        "longitude": "LONGITUDE",
+        "contractor": "CONTRACTORNAME",
+        "owner": "OWNERNAME",
+        "permit_number": "PERMITNUMBER",
+        "status": "STATUS",
+        "address": "WLFULLADDRESS",
+        "applicant": "APPLICANTCOMPANYNAME"
+      },
+      "text_fields": [
+        "CONTRACTORNAME",
+        "OWNERNAME",
+        "APPLICANTCOMPANYNAME"
+      ],
+      "address_parts": [],
+      "date_field": "ISSUEDATE",
+      "notes": "Construction Permit - 2017",
+      "record_count": 15814,
+      "verified": true
+    },
+    {
+      "source_id": "arcgis:maps2-dcgis-dc-gov-dcgis-services-feeds-ddot-featureserver-41",
+      "connector": "arcgis",
+      "endpoint": "https://maps2.dcgis.dc.gov/dcgis/rest/services/FEEDS/DDOT/FeatureServer/41",
+      "jurisdiction": "Washington, DC",
+      "state": "DC",
+      "field_map": {
+        "applied_date": "APPLICATIONDATE",
+        "final_date": "EXPIRATIONDATE",
+        "issued_date": "ISSUEDATE",
+        "latitude": "LATITUDE",
+        "longitude": "LONGITUDE",
+        "contractor": "CONTRACTORNAME",
+        "owner": "OWNERNAME",
+        "permit_number": "PERMITNUMBER",
+        "status": "STATUS",
+        "address": "WLFULLADDRESS",
+        "applicant": "APPLICANTCOMPANYNAME"
+      },
+      "text_fields": [
+        "CONTRACTORNAME",
+        "OWNERNAME",
+        "APPLICANTCOMPANYNAME"
+      ],
+      "address_parts": [],
+      "date_field": "ISSUEDATE",
+      "notes": "Construction Permit - 2023",
+      "record_count": 24692,
+      "verified": true
+    },
+    {
+      "source_id": "arcgis:maps2-dcgis-dc-gov-dcgis-services-feeds-ddot-featureserver-46",
+      "connector": "arcgis",
+      "endpoint": "https://maps2.dcgis.dc.gov/dcgis/rest/services/FEEDS/DDOT/FeatureServer/46",
+      "jurisdiction": "Washington, DC",
+      "state": "DC",
+      "field_map": {
+        "applied_date": "APPLICATIONDATE",
+        "final_date": "EXPIRATIONDATE",
+        "issued_date": "ISSUEDATE",
+        "latitude": "LATITUDE",
+        "longitude": "LONGITUDE",
+        "contractor": "CONTRACTORNAME",
+        "owner": "OWNERNAME",
+        "permit_number": "PERMITNUMBER",
+        "status": "STATUS",
+        "address": "WLFULLADDRESS",
+        "applicant": "APPLICANTCOMPANYNAME"
+      },
+      "text_fields": [
+        "CONTRACTORNAME",
+        "OWNERNAME",
+        "APPLICANTCOMPANYNAME"
+      ],
+      "address_parts": [],
+      "date_field": "ISSUEDATE",
+      "notes": "Construction Permit - 2025",
+      "record_count": 23086,
+      "verified": true
+    },
+    {
+      "source_id": "arcgis:maps2-dcgis-dc-gov-dcgis-services-feeds-ddot-featureserver-6",
+      "connector": "arcgis",
+      "endpoint": "https://maps2.dcgis.dc.gov/dcgis/rest/services/FEEDS/DDOT/FeatureServer/6",
+      "jurisdiction": "Washington, DC",
+      "state": "DC",
+      "field_map": {
+        "applied_date": "APPLICATIONDATE",
+        "final_date": "EXPIRATIONDATE",
+        "issued_date": "ISSUEDATE",
+        "latitude": "LATITUDE",
+        "longitude": "LONGITUDE",
+        "contractor": "CONTRACTORNAME",
+        "owner": "OWNERNAME",
+        "permit_number": "PERMITNUMBER",
+        "status": "STATUS",
+        "address": "WLFULLADDRESS",
+        "applicant": "APPLICANTCOMPANYNAME"
+      },
+      "text_fields": [
+        "CONTRACTORNAME",
+        "OWNERNAME",
+        "APPLICANTCOMPANYNAME"
+      ],
+      "address_parts": [],
+      "date_field": "ISSUEDATE",
+      "notes": "Construction Permit - 2019",
+      "record_count": 17005,
+      "verified": true
+    },
+    {
+      "source_id": "arcgis:maps2-dcgis-dc-gov-dcgis-services-feeds-ddot-featureserver-8",
+      "connector": "arcgis",
+      "endpoint": "https://maps2.dcgis.dc.gov/dcgis/rest/services/FEEDS/DDOT/FeatureServer/8",
+      "jurisdiction": "Washington, DC",
+      "state": "DC",
+      "field_map": {
+        "applied_date": "APPLICATIONDATE",
+        "final_date": "EXPIRATIONDATE",
+        "issued_date": "ISSUEDATE",
+        "latitude": "LATITUDE",
+        "longitude": "LONGITUDE",
+        "contractor": "CONTRACTORNAME",
+        "owner": "OWNERNAME",
+        "permit_number": "PERMITNUMBER",
+        "status": "STATUS",
+        "address": "WLFULLADDRESS",
+        "applicant": "APPLICANTCOMPANYNAME"
+      },
+      "text_fields": [
+        "CONTRACTORNAME",
+        "OWNERNAME",
+        "APPLICANTCOMPANYNAME"
+      ],
+      "address_parts": [],
+      "date_field": "ISSUEDATE",
+      "notes": "Construction Permit - 2020",
+      "record_count": 21487,
       "verified": true
     },
     {
@@ -1222,6 +1615,29 @@
       "verified": true
     },
     {
+      "source_id": "socrata:data.cityofnewyork.us:4k4u-823g",
+      "connector": "socrata",
+      "endpoint": "https://data.cityofnewyork.us/resource/4k4u-823g.json",
+      "jurisdiction": "New York City",
+      "state": "NY",
+      "field_map": {
+        "issued_date": "dateissued",
+        "description": "permit_description",
+        "permit_number": "permit_no",
+        "zipcode": "zip",
+        "permit_type": "serv_order_type"
+      },
+      "text_fields": [
+        "permit_description",
+        "serv_order_type"
+      ],
+      "address_parts": [],
+      "date_field": "dateissued",
+      "notes": "Water and Sewer Permits (Historic)",
+      "record_count": null,
+      "verified": true
+    },
+    {
       "source_id": "socrata:data.cityofnewyork.us:c9sj-fmsg",
       "connector": "socrata",
       "endpoint": "https://data.cityofnewyork.us/resource/c9sj-fmsg.json",
@@ -1243,6 +1659,41 @@
       "address_parts": [],
       "date_field": "permitissuedate",
       "notes": "Street Construction Permits (2013-2021)",
+      "record_count": null,
+      "verified": true
+    },
+    {
+      "source_id": "socrata:data.cityofnewyork.us:rbx6-tga4",
+      "connector": "socrata",
+      "endpoint": "https://data.cityofnewyork.us/resource/rbx6-tga4.json",
+      "jurisdiction": "New York City",
+      "state": "NY",
+      "field_map": {
+        "issued_date": "issued_date",
+        "latitude": "latitude",
+        "longitude": "longitude",
+        "applicant": "applicant_business_name",
+        "description": "job_description",
+        "owner": "owner_business_name",
+        "permit_type": "work_type",
+        "status": "permit_status",
+        "zipcode": "zip_code",
+        "final_date": "expired_date",
+        "valuation": "estimated_job_costs",
+        "contractor": "filing_representative_business_name"
+      },
+      "text_fields": [
+        "applicant_business_name",
+        "job_description",
+        "owner_business_name",
+        "owner_name"
+      ],
+      "address_parts": [
+        "house_no",
+        "street_name"
+      ],
+      "date_field": "issued_date",
+      "notes": "DOB NOW: Build \u2013 Approved Permits",
       "record_count": null,
       "verified": true
     },
@@ -1295,6 +1746,29 @@
       "address_parts": [],
       "date_field": null,
       "notes": "Interagency Coordination and Construction Permits Data (MOSYS)",
+      "record_count": null,
+      "verified": true
+    },
+    {
+      "source_id": "socrata:data.lacity.org:j7mw-thyc",
+      "connector": "socrata",
+      "endpoint": "https://data.lacity.org/resource/j7mw-thyc.json",
+      "jurisdiction": "Los Angeles",
+      "state": "CA",
+      "field_map": {
+        "issued_date": "permitissuedate",
+        "address": "location",
+        "permit_number": "permitno",
+        "permit_type": "permittype",
+        "work_class": "permitsubtype"
+      },
+      "text_fields": [
+        "permitsubtype",
+        "permittype"
+      ],
+      "address_parts": [],
+      "date_field": "permitissuedate",
+      "notes": "Bureau of Engineering Permit Information",
       "record_count": null,
       "verified": true
     },
@@ -1390,6 +1864,28 @@
       "verified": true
     },
     {
+      "source_id": "socrata:data.nola.gov:nbcf-m6c2",
+      "connector": "socrata",
+      "endpoint": "https://data.nola.gov/resource/nbcf-m6c2.json",
+      "jurisdiction": "Nola",
+      "state": null,
+      "field_map": {
+        "issued_date": "issuedate",
+        "address": "address",
+        "permit_type": "permittype",
+        "description": "descr"
+      },
+      "text_fields": [
+        "permittype",
+        "descr"
+      ],
+      "address_parts": [],
+      "date_field": "issuedate",
+      "notes": "Building Permits (2018-present)",
+      "record_count": null,
+      "verified": true
+    },
+    {
       "source_id": "socrata:data.roseville.ca.us:buxi-gsvq",
       "connector": "socrata",
       "endpoint": "https://data.roseville.ca.us/resource/buxi-gsvq.json",
@@ -1460,6 +1956,34 @@
       "address_parts": [],
       "date_field": "permitissueddate",
       "notes": "Collin CAD Building Permits",
+      "record_count": null,
+      "verified": true
+    },
+    {
+      "source_id": "socrata:data.wa.gov:ez9k-2c5k",
+      "connector": "socrata",
+      "endpoint": "https://data.wa.gov/resource/ez9k-2c5k.json",
+      "jurisdiction": "Wa",
+      "state": null,
+      "field_map": {
+        "issued_date": "dateissued",
+        "address": "address",
+        "contractor": "contractor",
+        "description": "projectdescription",
+        "owner": "owner",
+        "permit_number": "permitnumber",
+        "valuation": "valuation",
+        "permit_type": "typeofpermit"
+      },
+      "text_fields": [
+        "contractor",
+        "owner",
+        "projectdescription",
+        "typeofpermit"
+      ],
+      "address_parts": [],
+      "date_field": "dateissued",
+      "notes": "City of Asotin Building Permits",
       "record_count": null,
       "verified": true
     },
@@ -1599,6 +2123,40 @@
       "address_parts": [],
       "date_field": "issueddate",
       "notes": "Building Permits 2017",
+      "record_count": null,
+      "verified": true
+    },
+    {
+      "source_id": "socrata:internal-sandiegocounty.data.socrata.com:drv2-yz75",
+      "connector": "socrata",
+      "endpoint": "https://internal-sandiegocounty.data.socrata.com/resource/drv2-yz75.json",
+      "jurisdiction": "San Diego County",
+      "state": "CA",
+      "field_map": {
+        "applied_date": "applieddate",
+        "final_date": "completeddate",
+        "square_feet": "totalsqft",
+        "address": "originaladdress1",
+        "city": "originalcity",
+        "description": "description",
+        "permit_number": "permitnum",
+        "permit_type": "permitclass",
+        "status": "statuscurrent",
+        "work_class": "workclass",
+        "zipcode": "originalzip",
+        "issued_date": "issueddate",
+        "valuation": "estprojectcost",
+        "contractor": "contractorcompan"
+      },
+      "text_fields": [
+        "description",
+        "permitclass",
+        "permittype",
+        "permittypedesc"
+      ],
+      "address_parts": [],
+      "date_field": "issueddate",
+      "notes": "Building Permits 2010",
       "record_count": null,
       "verified": true
     },

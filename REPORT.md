@@ -1,10 +1,10 @@
 # Data-center permit activity
 
-**193 candidate permits** from 2022-09-19 to 2026-09-16
+**204 candidate permits** from 2022-09-19 to 2026-09-16
 
-Confidence: confirmed 137, probable 56
+Confidence: confirmed 148, probable 56
 
-Project type: equipment 2, expansion 13, fitout 76, new_build 26, other 58, power_infrastructure 18
+Project type: equipment 3, expansion 15, fitout 76, new_build 27, other 65, power_infrastructure 18
 
 ## Markets
 
@@ -14,6 +14,7 @@ Project type: equipment 2, expansion 13, fitout 76, new_build 26, other 58, powe
 | Texas, TX | 7 | 24 | $838.1M | 18 | Aligned Data Centers, CyrusOne, DataBank |
 | Chicago, IL | 7 | 52 | $386.4M | 36 | — |
 | Austin, TX | 7 | 65 | $2.1M | 37 | — |
+| New York City, NY | 3 | 11 | $15.6M | 11 | — |
 | Los Angeles, CA | 2 | 4 | $3.1M | 3 | — |
 | Williamson County, TX | 0 | 8 | — | 6 | — |
 | Montgomery County, MD | 0 | 1 | — | 1 | — |
@@ -24,6 +25,7 @@ Project type: equipment 2, expansion 13, fitout 76, new_build 26, other 58, powe
 |---|---|---:|---:|---:|---:|
 | IL | 2026-Q3 | 3 | 1 | +2 | +200% |
 | TX | 2026-Q3 | 0 | 2 | -2 | -100% |
+| NY | 2026-Q3 | 0 | 2 | -2 | -100% |
 
 ## Operators
 
@@ -37,7 +39,7 @@ Project type: equipment 2, expansion 13, fitout 76, new_build 26, other 58, powe
 
 ## Capacity estimate (heuristic)
 
-~**174 MW** implied by $1.73B of new-build/expansion valuation across 31 permits at $10.0M/MW.
+~**175 MW** implied by $1.75B of new-build/expansion valuation across 34 permits at $10.0M/MW.
 
 > Order-of-magnitude heuristic only. Permit valuations are self-declared, exclude IT equipment, and are missing entirely in many jurisdictions. Not a substitute for utility interconnection data.
 
