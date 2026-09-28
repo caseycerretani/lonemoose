@@ -2319,6 +2319,40 @@
       "verified": true
     },
     {
+      "source_id": "socrata:internal-sandiegocounty.data.socrata.com:k69i-wvqz",
+      "connector": "socrata",
+      "endpoint": "https://internal-sandiegocounty.data.socrata.com/resource/k69i-wvqz.json",
+      "jurisdiction": "San Diego County",
+      "state": "CA",
+      "field_map": {
+        "applied_date": "applieddate",
+        "final_date": "completeddate",
+        "issued_date": "issueddate",
+        "square_feet": "totalsqft",
+        "address": "originaladdress1",
+        "city": "originalcity",
+        "description": "description",
+        "permit_number": "permitnum",
+        "permit_type": "permitclass",
+        "status": "statuscurrent",
+        "work_class": "workclass",
+        "zipcode": "originalzip",
+        "valuation": "estprojectcost",
+        "contractor": "contractorcompan"
+      },
+      "text_fields": [
+        "description",
+        "permitclass",
+        "permittype",
+        "permittypedesc"
+      ],
+      "address_parts": [],
+      "date_field": "issueddate",
+      "notes": "Building Permits 2014",
+      "record_count": null,
+      "verified": true
+    },
+    {
       "source_id": "socrata:internal-sandiegocounty.data.socrata.com:x4nm-bcxc",
       "connector": "socrata",
       "endpoint": "https://internal-sandiegocounty.data.socrata.com/resource/x4nm-bcxc.json",
