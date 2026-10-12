@@ -787,6 +787,36 @@
       "verified": true
     },
     {
+      "source_id": "arcgis:maps2-dcgis-dc-gov-dcgis-services-feeds-ddot-featureserver-20",
+      "connector": "arcgis",
+      "endpoint": "https://maps2.dcgis.dc.gov/dcgis/rest/services/FEEDS/DDOT/FeatureServer/20",
+      "jurisdiction": "Washington, DC",
+      "state": "DC",
+      "field_map": {
+        "applied_date": "APPLICATIONDATE",
+        "final_date": "EXPIRATIONDATE",
+        "issued_date": "ISSUEDATE",
+        "latitude": "LATITUDE",
+        "longitude": "LONGITUDE",
+        "contractor": "CONTRACTORNAME",
+        "owner": "OWNERNAME",
+        "permit_number": "PERMITNUMBER",
+        "status": "STATUS",
+        "address": "WLFULLADDRESS",
+        "applicant": "APPLICANTCOMPANYNAME"
+      },
+      "text_fields": [
+        "CONTRACTORNAME",
+        "OWNERNAME",
+        "APPLICANTCOMPANYNAME"
+      ],
+      "address_parts": [],
+      "date_field": "ISSUEDATE",
+      "notes": "Construction Permit - 2022",
+      "record_count": 23299,
+      "verified": true
+    },
+    {
       "source_id": "arcgis:maps2-dcgis-dc-gov-dcgis-services-feeds-ddot-featureserver-28",
       "connector": "arcgis",
       "endpoint": "https://maps2.dcgis.dc.gov/dcgis/rest/services/FEEDS/DDOT/FeatureServer/28",
