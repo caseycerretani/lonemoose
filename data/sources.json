@@ -2123,6 +2123,30 @@
       "verified": true
     },
     {
+      "source_id": "socrata:internal-sandiegocounty.data.socrata.com:8yyq-swdg",
+      "connector": "socrata",
+      "endpoint": "https://internal-sandiegocounty.data.socrata.com/resource/8yyq-swdg.json",
+      "jurisdiction": "San Diego County",
+      "state": "CA",
+      "field_map": {
+        "issued_date": "permit_issue_date",
+        "address": "street_address",
+        "city": "city",
+        "permit_number": "record_id",
+        "permit_type": "record_type",
+        "status": "record_status",
+        "zipcode": "zip_code"
+      },
+      "text_fields": [
+        "record_type"
+      ],
+      "address_parts": [],
+      "date_field": "permit_issue_date",
+      "notes": "Construction Permits",
+      "record_count": null,
+      "verified": true
+    },
+    {
       "source_id": "socrata:internal-sandiegocounty.data.socrata.com:aft7-dudp",
       "connector": "socrata",
       "endpoint": "https://internal-sandiegocounty.data.socrata.com/resource/aft7-dudp.json",
