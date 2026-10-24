@@ -1,10 +1,10 @@
 # Data-center permit activity
 
-**205 candidate permits** from 2022-09-19 to 2026-10-01
+**206 candidate permits** from 2022-09-19 to 2026-10-22
 
-Confidence: confirmed 149, probable 56
+Confidence: confirmed 150, probable 56
 
-Project type: equipment 3, expansion 16, fitout 76, new_build 27, other 65, power_infrastructure 18
+Project type: equipment 3, expansion 16, fitout 76, new_build 27, other 66, power_infrastructure 18
 
 ## Markets
 
@@ -14,7 +14,7 @@ Project type: equipment 3, expansion 16, fitout 76, new_build 27, other 65, powe
 | Texas, TX | 7 | 24 | $838.1M | 18 | Aligned Data Centers, CyrusOne, DataBank |
 | Chicago, IL | 7 | 52 | $386.4M | 36 | — |
 | Austin, TX | 7 | 65 | $2.1M | 37 | — |
-| New York City, NY | 3 | 11 | $15.6M | 11 | — |
+| New York City, NY | 3 | 12 | $15.8M | 12 | — |
 | Los Angeles, CA | 3 | 5 | $10.1M | 4 | — |
 | Williamson County, TX | 0 | 8 | — | 6 | — |
 | Montgomery County, MD | 0 | 1 | — | 1 | — |
