@@ -2123,6 +2123,34 @@
       "verified": true
     },
     {
+      "source_id": "socrata:illinois-edp.data.socrata.com:3k8p-pkx8",
+      "connector": "socrata",
+      "endpoint": "https://illinois-edp.data.socrata.com/resource/3k8p-pkx8.json",
+      "jurisdiction": "Illinois Edp",
+      "state": "IL",
+      "field_map": {
+        "valuation": "valuation",
+        "description": "description",
+        "permit_number": "permitno",
+        "permit_type": "permittype",
+        "work_class": "worktype",
+        "contractor": "contractordba",
+        "issued_date": "dateissued1",
+        "address": "propertyaddress"
+      },
+      "text_fields": [
+        "description",
+        "permittype",
+        "worktype",
+        "contractordba"
+      ],
+      "address_parts": [],
+      "date_field": "dateissued1",
+      "notes": "City of Rockford Building Permits",
+      "record_count": null,
+      "verified": true
+    },
+    {
       "source_id": "socrata:internal-sandiegocounty.data.socrata.com:8yyq-swdg",
       "connector": "socrata",
       "endpoint": "https://internal-sandiegocounty.data.socrata.com/resource/8yyq-swdg.json",
