@@ -1,17 +1,17 @@
 # Data-center permit activity
 
-**206 candidate permits** from 2022-09-19 to 2026-10-22
+**207 candidate permits** from 2022-09-19 to 2026-10-22
 
-Confidence: confirmed 150, probable 56
+Confidence: confirmed 151, probable 56
 
-Project type: equipment 3, expansion 16, fitout 76, new_build 27, other 66, power_infrastructure 18
+Project type: equipment 3, expansion 16, fitout 76, new_build 27, other 67, power_infrastructure 18
 
 ## Markets
 
 | Market | Growth permits | Total | Valuation | Confirmed | Operators |
 |---|---:|---:|---:|---:|---|
 | Mesa, AZ | 16 | 39 | $1.89B | 36 | CyrusOne, EdgeConneX |
-| Texas, TX | 7 | 24 | $838.1M | 18 | Aligned Data Centers, CyrusOne, DataBank |
+| Texas, TX | 7 | 25 | $838.1M | 19 | Aligned Data Centers, CyrusOne, DataBank |
 | Chicago, IL | 7 | 52 | $386.4M | 36 | — |
 | Austin, TX | 7 | 65 | $2.1M | 37 | — |
 | New York City, NY | 3 | 12 | $15.8M | 12 | — |
